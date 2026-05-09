@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html">E-commerce Cosmetics Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="contact-page">
+
+    <!-- LEFT SIDE -->
+    <div class="contact-left">
+      <h1>Get in Touch</h1>
+      <p class="contact-tagline">I'd love to hear from you!</p>
+      <p>If you have any inquiries, feedback or just want to say hi — please use the contact form or reach us directly.</p>
+
+      <div class="contact-detail">
+        <span>📧</span>
+        <div>
+          <p>escosmetics@gmail.com</p>
+          <p>support@escosmetics.pk</p>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <span>📞</span>
+        <div>
+          <p>+92 311 1234567</p>
+          <p>Mon – Sat, 10am – 7pm</p>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <span>📍</span>
+        <div>
+          <p>Shop 12, Beauty Plaza</p>
+          <p>Main Bazar, Gujrat, Pakistan</p>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a href="#" title="Like">👍</a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="mailto:escosmetics@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE — FORM -->
+    <div class="contact-right">
+      <form id="contactForm" onsubmit="sendMessage(event)">
+        <div class="contact-name-row">
+          <div>
+            <label>First Name</label>
+            <input type="text" id="cfname" placeholder="First name" required>
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input type="text" id="clname" placeholder="Last name" required>
+          </div>
+        </div>
+        <div>
+          <label>Email *</label>
+          <input type="email" id="cemail" placeholder="Your email" required>
+        </div>
+        <div>
+          <label>Message</label>
+          <textarea id="cmessage" rows="5" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit">Send Message 💌</button>
+      </form>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Beauty that speaks for you.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    window.onload = function(){ initNavbar(); updateCartCount(); };
+
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    }
+
+    function sendMessage(e) {
+      e.preventDefault();
+      let fname = document.getElementById('cfname').value.trim();
+      let lname = document.getElementById('clname').value.trim();
+      let email = document.getElementById('cemail').value.trim();
+      let msg   = document.getElementById('cmessage').value.trim();
+      if (!fname || !email || !msg) { showToast('Please fill required fields', 'error'); return; }
+      showToast('✅ Message sent! We will get back to you soon.');
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

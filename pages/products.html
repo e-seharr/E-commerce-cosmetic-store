@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html">E-commerce Cosmetics Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="shop-topbar">
+      <h2>All Products 💄</h2>
+      <div class="shop-topbar-right">
+        <input type="text" id="searchInput" placeholder="🔍 Search..." onkeyup="liveSearch(this.value)">
+        <select id="sortSelect" onchange="sortProducts(this.value)">
+          <option value="default">Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="active-filters" id="activeTags"></div>
+  </div>
+
+  <div class="shop-layout">
+
+    <div class="filter-sidebar">
+      <h3>Filter By</h3>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">Category <span>+</span></div>
+        <div class="accordion-body" id="catBody">
+          <a href="#" class="acc-link active-link" onclick="setCat('all',this);return false;">All Products</a>
+          <a href="#" class="acc-link" onclick="setCat('makeup',this);return false;">💄 Makeup</a>
+          <a href="#" class="acc-link" onclick="setCat('skincare',this);return false;">🧴 Skincare</a>
+          <a href="#" class="acc-link" onclick="setCat('haircare',this);return false;">💆 Haircare</a>
+          <a href="#" class="acc-link" onclick="setCat('nailcare',this);return false;">💅 Nailcare</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">Makeup Type <span>+</span></div>
+        <div class="accordion-body">
+          <a href="#" class="acc-link" onclick="setSub('lips',this);return false;">👄 Lips</a>
+          <a href="#" class="acc-link" onclick="setSub('eyes',this);return false;">👁️ Eyes</a>
+          <a href="#" class="acc-link" onclick="setSub('face',this);return false;">✨ Face</a>
+          <a href="#" class="acc-link" onclick="setSub('nails',this);return false;">💅 Nails</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">Price Range <span>+</span></div>
+        <div class="accordion-body">
+          <div class="sidebar-inputs">
+            <input type="number" id="minPrice" placeholder="Min Rs.">
+            <input type="number" id="maxPrice" placeholder="Max Rs.">
+            <button onclick="applyPrice()">See Results</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)">Discount <span>+</span></div>
+        <div class="accordion-body">
+          <a href="#" class="acc-link" onclick="showSaleOnly(this);return false;">🏷️ On Sale Only</a>
+          <a href="#" class="acc-link" onclick="setCat('all',this);return false;">All Products</a>
+        </div>
+      </div>
+
+      <div class="sidebar-inputs">
+        <button class="btn-outline" onclick="clearAllFilters()">Clear All Filters</button>
+      </div>
+    </div>
+
+    <div class="shop-products">
+      <div class="product-grid" id="productList">
+
+        <div class="product-card reveal" data-category="makeup" data-sub="lips" data-price="1200" data-name="Matte Lipstick" data-sale="true">
+          <span class="badge-discount">-20%</span>
+          <img src="../sources/lipstick1.jpeg" alt="Matte Lipstick">
+          <div class="product-card-body">
+            <h3>Matte Lipstick</h3>
+            <div class="price-area"><p class="price-old">Rs. 1500</p><p class="price-new">Rs. 1200</p></div>
+            <button onclick="addToCart('Matte Lipstick',1200,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Matte Lipstick',1200)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="2500" data-name="Liquid Foundation">
+          <img src="../sources/foundation.jpg" alt="Liquid Foundation">
+          <div class="product-card-body">
+            <h3>Liquid Foundation</h3>
+            <div class="price-area"><p class="price-new">Rs. 2500</p></div>
+            <button onclick="addToCart('Liquid Foundation',2500,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Liquid Foundation',2500)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="eyes" data-price="1800" data-name="Volume Mascara" data-sale="true">
+          <span class="badge-discount">-10%</span>
+          <img src="../sources/maskara.jpeg" alt="Volume Mascara">
+          <div class="product-card-body">
+            <h3>Volume Mascara</h3>
+            <div class="price-area"><p class="price-old">Rs. 2000</p><p class="price-new">Rs. 1800</p></div>
+            <button onclick="addToCart('Volume Mascara',1800,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Volume Mascara',1800)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="1500" data-name="Blush Palette">
+          <img src="../sources/blushes.jpeg" alt="Blush Palette">
+          <div class="product-card-body">
+            <h3>Blush Palette</h3>
+            <div class="price-area"><p class="price-new">Rs. 1500</p></div>
+            <button onclick="addToCart('Blush Palette',1500,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Blush Palette',1500)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="eyes" data-price="900" data-name="Waterproof Eyeliner">
+          <img src="../sources/liner .jpeg" alt="Waterproof Eyeliner">
+          <div class="product-card-body">
+            <h3>Waterproof Eyeliner</h3>
+            <div class="price-area"><p class="price-new">Rs. 900</p></div>
+            <button onclick="addToCart('Waterproof Eyeliner',900,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Waterproof Eyeliner',900)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="2000" data-name="Face Primer" data-sale="true">
+          <span class="badge-discount">-15%</span>
+          <img src="../sources/face primer1.jpeg" alt="Face Primer">
+          <div class="product-card-body">
+            <h3>Face Primer</h3>
+            <div class="price-area"><p class="price-old">Rs. 2350</p><p class="price-new">Rs. 2000</p></div>
+            <button onclick="addToCart('Face Primer',2000,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Face Primer',2000)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="1700" data-name="Concealer">
+          <img src="../sources/conceelerr.jpeg" alt="Concealer">
+          <div class="product-card-body">
+            <h3>Concealer</h3>
+            <div class="price-area"><p class="price-new">Rs. 1700</p></div>
+            <button onclick="addToCart('Concealer',1700,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Concealer',1700)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="1400" data-name="Compact Powder">
+          <img src="../sources/compact powder.jpeg" alt="Compact Powder">
+          <div class="product-card-body">
+            <h3>Compact Powder</h3>
+            <div class="price-area"><p class="price-new">Rs. 1400</p></div>
+            <button onclick="addToCart('Compact Powder',1400,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Compact Powder',1400)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="face" data-price="3000" data-name="Makeup Brush Set" data-sale="true">
+          <span class="badge-discount">-25%</span>
+          <img src="../sources/brushes.jpg.jpeg" alt="Makeup Brush Set">
+          <div class="product-card-body">
+            <h3>Makeup Brush Set</h3>
+            <div class="price-area"><p class="price-old">Rs. 4000</p><p class="price-new">Rs. 3000</p></div>
+            <button onclick="addToCart('Makeup Brush Set',3000,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Makeup Brush Set',3000)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="eyes" data-price="3500" data-name="Eyeshadow Palette">
+          <img src="../sources/palette.jpeg" alt="Eyeshadow Palette">
+          <div class="product-card-body">
+            <h3>Eyeshadow Palette</h3>
+            <div class="price-area"><p class="price-new">Rs. 3500</p></div>
+            <button onclick="addToCart('Eyeshadow Palette',3500,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Eyeshadow Palette',3500)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="makeup" data-sub="lips" data-price="900" data-name="Lip Gloss">
+          <img src="../sources/gloss.jpeg" alt="Lip Gloss">
+          <div class="product-card-body">
+            <h3>Lip Gloss</h3>
+            <div class="price-area"><p class="price-new">Rs. 900</p></div>
+            <button onclick="addToCart('Lip Gloss',900,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Lip Gloss',900)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="skincare" data-sub="face" data-price="1500" data-name="Face Cleanser">
+          <img src="../sources/face cleanser.jpeg" alt="Face Cleanser">
+          <div class="product-card-body">
+            <h3>Face Cleanser</h3>
+            <div class="price-area"><p class="price-new">Rs. 1500</p></div>
+            <button onclick="addToCart('Face Cleanser',1500,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Face Cleanser',1500)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="skincare" data-sub="face" data-price="2000" data-name="Moisturizer" data-sale="true">
+          <span class="badge-discount">-10%</span>
+          <img src="../sources/moisturizers.jpeg" alt="Moisturizer">
+          <div class="product-card-body">
+            <h3>Moisturizer</h3>
+            <div class="price-area"><p class="price-old">Rs. 2200</p><p class="price-new">Rs. 2000</p></div>
+            <button onclick="addToCart('Moisturizer',2000,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Moisturizer',2000)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="skincare" data-sub="face" data-price="1200" data-name="Vitamin C Serum">
+          <img src="../sources/vitamin c.jpeg" alt="Vitamin C Serum">
+          <div class="product-card-body">
+            <h3>Vitamin C Serum</h3>
+            <div class="price-area"><p class="price-new">Rs. 1200</p></div>
+            <button onclick="addToCart('Vitamin C Serum',1200,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Vitamin C Serum',1200)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="haircare" data-sub="hair" data-price="1200" data-name="Shampoo">
+          <img src="../sources/shampoo.jpeg" alt="Shampoo">
+          <div class="product-card-body">
+            <h3>Shampoo</h3>
+            <div class="price-area"><p class="price-new">Rs. 1200</p></div>
+            <button onclick="addToCart('Shampoo',1200,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Shampoo',1200)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="haircare" data-sub="hair" data-price="700" data-name="Hair Oil">
+          <img src="../sources/hair oil.jpeg" alt="Hair Oil">
+          <div class="product-card-body">
+            <h3>Hair Oil</h3>
+            <div class="price-area"><p class="price-new">Rs. 700</p></div>
+            <button onclick="addToCart('Hair Oil',700,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Hair Oil',700)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="nailcare" data-sub="nails" data-price="700" data-name="Nail Polish">
+          <img src="../sources/nailpolish.jpeg" alt="Nail Polish">
+          <div class="product-card-body">
+            <h3>Nail Polish</h3>
+            <div class="price-area"><p class="price-new">Rs. 700</p></div>
+            <button onclick="addToCart('Nail Polish',700,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Nail Polish',700)">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-card reveal" data-category="nailcare" data-sub="nails" data-price="900" data-name="Nail Kit">
+          <img src="../sources/nailkit.jpeg" alt="Nail Kit">
+          <div class="product-card-body">
+            <h3>Nail Kit</h3>
+            <div class="price-area"><p class="price-new">Rs. 900</p></div>
+            <button onclick="addToCart('Nail Kit',900,this)">Add to Cart</button>
+            <button class="btn-outline" onclick="buyNow('Nail Kit',900)">Buy Now</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Premium beauty products for everyone.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html">Checkout</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    window.onload = function(){ initNavbar(); updateCartCount(); };
+
+    function toggleAcc(header) {
+      let body = header.nextElementSibling;
+      let sp = header.querySelector('span');
+      let isOpen = sp.textContent === '−';
+      document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = '');
+      document.querySelectorAll('.accordion-header').forEach(h => {
+        h.classList.remove('active');
+        let s = h.querySelector('span'); if(s) s.textContent = '+';
+      });
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        header.classList.add('active');
+        sp.textContent = '−';
+      }
+    }
+
+    function setCat(cat, el) {
+      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
+      el.classList.add('active-link');
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.style.display = (cat === 'all' || c.dataset.category === cat) ? 'flex' : 'none';
+      });
+      showTag(cat === 'all' ? '' : cat.charAt(0).toUpperCase() + cat.slice(1));
+    }
+
+    function setSub(sub, el) {
+      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
+      el.classList.add('active-link');
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.style.display = c.dataset.sub === sub ? 'flex' : 'none';
+      });
+      showTag(sub.charAt(0).toUpperCase() + sub.slice(1));
+    }
+
+    function applyPrice() {
+      let min = parseInt(document.getElementById('minPrice').value) || 0;
+      let max = parseInt(document.getElementById('maxPrice').value) || 999999;
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.style.display = (parseInt(c.dataset.price) >= min && parseInt(c.dataset.price) <= max) ? 'flex' : 'none';
+      });
+      showTag('Rs.' + min + ' – Rs.' + (max === 999999 ? '∞' : max));
+    }
+
+    function showSaleOnly(el) {
+      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
+      el.classList.add('active-link');
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.style.display = c.dataset.sale === 'true' ? 'flex' : 'none';
+      });
+      showTag('On Sale');
+    }
+
+    function showTag(label) {
+      let t = document.getElementById('activeTags');
+      t.innerHTML = label ? `<div class="filter-tag">${label} <button onclick="clearAllFilters()">✕</button></div>` : '';
+    }
+
+    function clearAllFilters() {
+      document.querySelectorAll('.product-card').forEach(c => c.style.display = 'flex');
+      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
+      document.querySelector('.acc-link').classList.add('active-link');
+      document.getElementById('minPrice').value = '';
+      document.getElementById('maxPrice').value = '';
+      document.getElementById('activeTags').innerHTML = '';
+      document.getElementById('searchInput').value = '';
+    }
+
+    function liveSearch(val) {
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(val.toLowerCase()) ? 'flex' : 'none';
+      });
+    }
+
+    function sortProducts(val) {
+      let grid = document.getElementById('productList');
+      let cards = Array.from(grid.querySelectorAll('.product-card'));
+      cards.sort((a,b) => {
+        if(val==='low')  return +a.dataset.price - +b.dataset.price;
+        if(val==='high') return +b.dataset.price - +a.dataset.price;
+        if(val==='name') return a.dataset.name.localeCompare(b.dataset.name);
+        return 0;
+      });
+      cards.forEach(c => grid.appendChild(c));
+    }
+
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      }
+    }
+  </script>
+
+</body>
+</html>

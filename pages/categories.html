@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+</head>
+<body>
+
+  <nav>
+  <a href="../index.html">E-commerce Cosmetics Store</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+  <div class="page">
+    <h2>Shop by Categories 💄</h2>
+  </div>
+
+  <div class="filter-layout">
+
+    <!-- ACCORDION SIDEBAR -->
+    <div class="filter-sidebar">
+      <h3>Filter By</h3>
+
+      <!-- CATEGORY ACCORDION -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Category <span>+</span>
+        </div>
+        <div class="accordion-body">
+          <a href="#" onclick="filterByCategory('all'); return false;">All</a>
+          <a href="#" onclick="filterByCategory('makeup'); return false;">Makeup</a>
+          <a href="#" onclick="filterByCategory('skincare'); return false;">Skincare</a>
+          <a href="#" onclick="filterByCategory('haircare'); return false;">Haircare</a>
+          <a href="#" onclick="filterByCategory('nailcare'); return false;">Nailcare</a>
+        </div>
+      </div>
+
+      <!-- MAKEUP SUB ACCORDION -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Makeup <span>+</span>
+        </div>
+        <div class="accordion-body">
+          <a href="#" onclick="filterBySubCategory('lips'); return false;">Lips</a>
+          <a href="#" onclick="filterBySubCategory('eyes'); return false;">Eyes</a>
+          <a href="#" onclick="filterBySubCategory('face'); return false;">Face</a>
+          <a href="#" onclick="filterBySubCategory('nails'); return false;">Nails</a>
+        </div>
+      </div>
+
+      <!-- PRICE ACCORDION -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Price <span>+</span>
+        </div>
+        <div class="accordion-body">
+          <div class="filter-sidebar-bottom">
+            <input type="number" id="minPrice" placeholder="Min Rs.">
+            <input type="number" id="maxPrice" placeholder="Max Rs.">
+            <button onclick="filterByPrice()">See Results</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCOUNT ACCORDION -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          Discount <span>+</span>
+        </div>
+        <div class="accordion-body">
+          <a href="#" onclick="filterByDiscount(); return false;">On Sale</a>
+          <a href="#" onclick="resetFilters(); return false;">All Products</a>
+        </div>
+      </div>
+
+      <div class="filter-sidebar-bottom">
+        <button class="btn-outline" onclick="resetFilters()">Clear Filters</button>
+      </div>
+    </div>
+
+    <!-- PRODUCTS AREA -->
+    <div class="filter-products-area">
+
+      <!-- ACTIVE FILTER TAGS -->
+      <div class="active-filters" id="activeTags"></div>
+
+      <div class="card-container" id="categoryProducts">
+
+        <div class="card reveal" data-category="makeup" data-subcategory="lips" data-price="1200" data-sale="true">
+          <span class="badge-discount">-20%</span>
+          <img src="../sources/lipstick1.jpeg" alt="Lipstick">
+          <h3>Lipstick</h3>
+          <p class="price-old">Rs. 1500</p>
+          <p class="price-new">Rs. 1200</p>
+          <button onclick="addToCart('Lipstick',1200,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="makeup" data-subcategory="eyes" data-price="1800">
+          <img src="../sources/maskara.jpeg" alt="Mascara">
+          <h3>Mascara</h3>
+          <p class="price-new">Rs. 1800</p>
+          <button onclick="addToCart('Mascara',1800,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="makeup" data-subcategory="eyes" data-price="3500">
+          <img src="../sources/palette.jpeg" alt="Eyeshadow Palette">
+          <h3>Eyeshadow Palette</h3>
+          <p class="price-new">Rs. 3500</p>
+          <button onclick="addToCart('Eyeshadow Palette',3500,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="makeup" data-subcategory="lips" data-price="900">
+          <img src="../sources/gloss.jpeg" alt="Lip Gloss">
+          <h3>Lip Gloss</h3>
+          <p class="price-new">Rs. 900</p>
+          <button onclick="addToCart('Lip Gloss',900,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="makeup" data-subcategory="face" data-price="1400" data-sale="true">
+          <span class="badge-discount">-15%</span>
+          <img src="../sources/compact powder.jpeg" alt="Compact Powder">
+          <h3>Compact Powder</h3>
+          <p class="price-old">Rs. 1650</p>
+          <p class="price-new">Rs. 1400</p>
+          <button onclick="addToCart('Compact Powder',1400,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="500">
+          <img src="../sources/face cleanser.jpeg" alt="Face Cleanser">
+          <h3>Face Cleanser</h3>
+          <p class="price-new">Rs. 500</p>
+          <button onclick="addToCart('Face Cleanser',500,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="1000" data-sale="true">
+          <span class="badge-discount">-10%</span>
+          <img src="../sources/moisturizers.jpeg" alt="Moisturizer">
+          <h3>Moisturizer</h3>
+          <p class="price-old">Rs. 1100</p>
+          <p class="price-new">Rs. 1000</p>
+          <button onclick="addToCart('Moisturizer',1000,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="1200">
+          <img src="../sources/vitamin c.jpeg" alt="Vitamin C Serum">
+          <h3>Vitamin C Serum</h3>
+          <p class="price-new">Rs. 1200</p>
+          <button onclick="addToCart('Vitamin C Serum',1200,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="haircare" data-subcategory="hair" data-price="1200">
+          <img src="../sources/shampoo.jpeg" alt="Shampoo">
+          <h3>Shampoo</h3>
+          <p class="price-new">Rs. 1200</p>
+          <button onclick="addToCart('Shampoo',1200,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="haircare" data-subcategory="hair" data-price="700">
+          <img src="../sources/hair oil.jpeg" alt="Hair Oil">
+          <h3>Hair Oil</h3>
+          <p class="price-new">Rs. 700</p>
+          <button onclick="addToCart('Hair Oil',700,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="nailcare" data-subcategory="nails" data-price="700">
+          <img src="../sources/nailpolish.jpeg" alt="Nail Polish">
+          <h3>Nail Polish</h3>
+          <p class="price-new">Rs. 700</p>
+          <button onclick="addToCart('Nail Polish',700,this)">Add to Cart</button>
+        </div>
+
+        <div class="card reveal" data-category="nailcare" data-subcategory="nails" data-price="900">
+          <img src="../sources/nailkit.jpeg" alt="Nail Kit">
+          <h3>Nail Kit</h3>
+          <p class="price-new">Rs. 900</p>
+          <button onclick="addToCart('Nail Kit',900,this)">Add to Cart</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Premium beauty products for everyone.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      }
+    }
+
+    window.onload = function(){ initNavbar(); };
+
+    function toggleAccordion(header) {
+      let body = header.nextElementSibling;
+      let isOpen = body.style.maxHeight;
+      /* close all */
+      document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = '');
+      document.querySelectorAll('.accordion-header').forEach(h => {
+        h.classList.remove('active');
+        let sp = h.querySelector('span');
+        if (sp) sp.textContent = '+';
+      });
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        header.classList.add('active');
+        let sp = header.querySelector('span');
+        if (sp) sp.textContent = '−';
+      }
+    }
+
+    function filterBySubCategory(sub) {
+      document.querySelectorAll('.card[data-subcategory]').forEach(card => {
+        card.style.display = card.getAttribute('data-subcategory') === sub ? 'flex' : 'none';
+      });
+      showTag('Sub: ' + sub);
+    }
+
+    function filterByDiscount() {
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.display = card.getAttribute('data-sale') === 'true' ? 'flex' : 'none';
+      });
+      showTag('On Sale');
+    }
+
+    function showTag(label) {
+      let container = document.getElementById('activeTags');
+      container.innerHTML = `
+        <div class="filter-tag">
+          ${label}
+          <button onclick="clearTag()">✕</button>
+        </div>`;
+    }
+
+    function clearTag() {
+      document.getElementById('activeTags').innerHTML = '';
+      resetFilters();
+    }
+  </script>
+
+</body>
+</html>
+
+

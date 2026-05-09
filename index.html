@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-commerce Cosmetics Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cssFile/globalStyles.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html">E-commerce Cosmetics Store</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pages/products.html">Products</a></li>
+    <li><a href="pages/cart.html">Cart <span id="cartCount"></span></a></li>
+    <li><a href="pages/contact.html">Contact</a></li>
+    <li><a href="pages/login.html">Login</a></li>
+    <li><a href="pages/dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Beauty That Speaks For You</h1>
+    <p>Your everyday beauty essentials made for you. Soft luxury cosmetics for glow, confidence, and elegance.</p>
+    <button onclick="window.location.href='pages/products.html'">Shop Now</button>
+  </div>
+  <div class="hero-img">
+    <img src="sources/models.jpeg" alt="Model">
+  </div>
+</section>
+
+<!-- PROMOTIONAL BANNER -->
+<div class="promo-banner">
+  <div class="promo-item">🚚 Free Delivery on orders above 2000</div>
+  <div class="promo-item">💄 100% Original Products</div>
+  <div class="promo-item">✨ New arrivals every week</div>
+  <div class="promo-item">🎁 Free gift with every order above 10,000</div>
+</div>
+
+<!-- PRODUCTS SECTION WITH FILTER -->
+<div class="home-products-section">
+
+  <h2 class="section-title">Our Products</h2>
+
+  <!-- FILTER BUTTONS -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="homeFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="homeFilter('bestseller', this)">⭐ Best Sellers</button>
+    <button class="filter-btn" onclick="homeFilter('new', this)">✨ New Arrivals</button>
+    <button class="filter-btn" onclick="homeFilter('featured', this)">� Featured</button>
+  </div>
+
+  <!-- ALL CARDS WITH TAGS -->
+  <div class="card-container" id="homeProducts">
+
+    <!-- BEST SELLERS -->
+    <div class="card" data-home="bestseller">
+      <img src="sources/vitamin c.jpeg" alt="Vitamin C Serum">
+      <h3>Vitamin C Serum</h3>
+      <p>Rs. 1200</p>
+      <button onclick="addToCart('Vitamin C Serum',1200,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="bestseller">
+      <img src="sources/moisturizers.jpeg" alt="Moisturizer">
+      <h3>Moisturizer</h3>
+      <p>Rs. 1800</p>
+      <button onclick="addToCart('Moisturizer',1800,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="bestseller">
+      <img src="sources/primerr.jpeg" alt="Primer">
+      <h3>Primer</h3>
+      <p>Rs. 1500</p>
+      <button onclick="addToCart('Primer',1500,this)">Add to Cart</button>
+    </div>
+
+    <!-- NEW ARRIVALS -->
+    <div class="card" data-home="new">
+      <img src="sources/gloss.jpeg" alt="Lip Gloss">
+      <h3>Lip Gloss</h3>
+      <p>Rs. 900</p>
+      <button onclick="addToCart('Lip Gloss',900,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="new">
+      <img src="sources/blushes.jpeg" alt="Blush Palette">
+      <h3>Blush Palette</h3>
+      <p>Rs. 1100</p>
+      <button onclick="addToCart('Blush Palette',1100,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="new">
+      <img src="sources/palette.jpeg" alt="Eyeshadow Palette">
+      <h3>Eyeshadow Palette</h3>
+      <p>Rs. 1400</p>
+      <button onclick="addToCart('Eyeshadow Palette',1400,this)">Add to Cart</button>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="card" data-home="featured">
+      <img src="sources/lipstick1.jpeg" alt="Matte Lipstick">
+      <h3>Matte Lipstick</h3>
+      <p>Rs. 1200</p>
+      <button onclick="addToCart('Matte Lipstick',1200,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="featured">
+      <img src="sources/foundation.jpg" alt="Foundation">
+      <h3>Liquid Foundation</h3>
+      <p>Rs. 2500</p>
+      <button onclick="addToCart('Liquid Foundation',2500,this)">Add to Cart</button>
+    </div>
+
+    <div class="card" data-home="featured">
+      <img src="sources/maskara.jpeg" alt="Mascara">
+      <h3>Volume Mascara</h3>
+      <p>Rs. 1800</p>
+      <button onclick="addToCart('Volume Mascara',1800,this)">Add to Cart</button>
+    </div>
+
+  </div>
+
+  <!-- VIEW ALL BUTTON -->
+  <div class="filter-bar">
+    <button onclick="window.location.href='pages/products.html'">View All Products →</button>
+  </div>
+
+</div>
+
+<!-- CUSTOMER REVIEWS -->
+<h2 class="section-title">What Our Customers Say 💕</h2>
+<div class="reviews-container">
+
+  <div class="review-card">
+    <div class="review-stars">★★★★★</div>
+    <p>"Absolutely love the Matte Lipstick! The color stays all day and feels so smooth. Will definitely order again!"</p>
+    <div class="review-author">— Ayesha K.</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-stars">★★★★★</div>
+    <p>"The Vitamin C Serum is amazing. My skin looks so bright and glowing after just 2 weeks of use. Highly recommend!"</p>
+    <div class="review-author">— Sana M.</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-stars">★★★★☆</div>
+    <p>"Fast delivery and beautiful packaging. The Eyeshadow Palette has such gorgeous shades. E-commerce Cosmetics Store never disappoints!"</p>
+    <div class="review-author">— Fatima R.</div>
+  </div>
+
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>Subscribe to E-commerce Cosmetics Store</h2>
+  <input id="subEmail" type="email" placeholder="Enter email">
+  <br><br>
+  <button onclick="subscribe()">Subscribe</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <h2>E-commerce Cosmetics Store</h2>
+      <p>Beauty that speaks for you. Premium cosmetics crafted with love.</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="index.html">Home</a>
+      <a href="pages/products.html">Products</a>
+      <a href="pages/cart.html">Cart</a>
+    </div>
+    <div>
+      <h3>Support</h3>
+      <a href="pages/contact.html">Contact Us</a>
+      <a href="pages/login.html">Login</a>
+      <a href="pages/dashboard.html">Dashboard</a>
+    </div>
+  </div>
+  <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+</footer>
+
+<script src="jsFile/jsFunction.js"></script>
+<script>
+  window.onload = function(){
+    initNavbar();
+    updateCartCount();
+  };
+
+  function initNavbar() {
+    let toggle = document.getElementById('menuToggle');
+    let menu = document.getElementById('navMenu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    }
+  }
+
+  function homeFilter(type, btn) {
+    /* update active button */
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    /* show/hide cards */
+    document.querySelectorAll('#homeProducts .card').forEach(card => {
+      card.style.display = (type === 'all' || card.dataset.home === type) ? 'flex' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
+
+ 
+
+

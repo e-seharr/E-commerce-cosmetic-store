@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+</head>
+<body>
+
+  <nav>
+  <a href="../index.html">E-commerce Cosmetics Store</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+  <div class="form-container">
+    <h2>Login 🔐</h2>
+    <p>Welcome back! Please sign in to your account.</p>
+    <form onsubmit="loginUser(event)">
+      <div><label>Email Address</label><input type="email" id="lemail" placeholder="Enter your email" required></div>
+      <div><label>Password</label><input type="password" id="lpassword" placeholder="Enter your password" required></div>
+      <button type="submit">Sign In</button>
+    </form>
+    <br>
+    <p>Don't have an account? <a href="signup.html">Register here</a></p>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Premium beauty products for everyone.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="signup.html">Register</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      }
+    }
+
+    window.onload = function(){ initNavbar(); };
+  </script>
+
+</body>
+</html>
+
+

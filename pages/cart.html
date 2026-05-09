@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+</head>
+<body>
+
+  <nav>
+  <a href="../index.html">E-commerce Cosmetics Store</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+  <div class="page">
+
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <span id="cartItemCount" class="cart-count-badge">0 items</span>
+    </div>
+
+    <!-- CART TABLE -->
+    <div class="cart-table-wrap">
+      <div class="table-container">
+        <table style="min-width:400px; max-width:860px;">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cartItems"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY BOX — centered -->
+    <div class="cart-summary">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span>Rs. <span id="subtotalAmt">0</span></span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Delivery</span>
+        <span>Rs. <span id="deliveryAmt">0</span></span>
+      </div>
+      <div class="cart-summary-divider"></div>
+      <div class="cart-summary-total">
+        <span>Estimated Total</span>
+        <span>Rs. <span id="total">0</span></span>
+      </div>
+      <p class="cart-summary-note">Taxes and discounts calculated at checkout</p>
+      <div id="freeGiftMsg" class="free-gift-msg hidden">
+        🎁 Yay! A free gift has been added to your order!
+      </div>
+      <p id="giftProgress" class="gift-progress hidden"></p>
+      <button onclick="goCheckout()">Checkout</button>
+      <button class="btn-outline" onclick="clearCart()">Clear Cart</button>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Premium beauty products for everyone.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="checkout.html">Checkout</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      }
+    }
+
+    window.onload = function(){ initNavbar(); loadCart(); };
+
+    function loadCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let tbody = document.getElementById('cartItems');
+      let subtotal = 0;
+      tbody.innerHTML = '';
+
+      document.getElementById('cartItemCount').textContent = cart.length + (cart.length === 1 ? ' item' : ' items');
+
+      if (cart.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="table-empty">
+              <div class="cart-empty-state">
+                <div class="cart-empty-icon">🛒</div>
+                <p>Your cart is empty</p>
+                <button onclick="window.location.href='products.html'">Shop Now</button>
+              </div>
+            </td>
+          </tr>`;
+        document.getElementById('subtotalAmt').textContent = 0;
+        document.getElementById('deliveryAmt').textContent = 0;
+        document.getElementById('total').textContent = 0;
+        document.getElementById('cartItemCount').textContent = '0 items';
+        let el = document.getElementById('cartCount');
+        if (el) el.textContent = '';
+        return;
+      }
+
+      /* group same items */
+      let grouped = {};
+      cart.forEach(item => {
+        let key = item.name;
+        if (grouped[key]) {
+          grouped[key].qty++;
+          grouped[key].subtotal += item.price;
+        } else {
+          grouped[key] = { name: item.name, price: item.price, qty: 1, subtotal: item.price };
+        }
+      });
+
+      Object.values(grouped).forEach((item, index) => {
+        subtotal += item.subtotal;
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${item.name}</strong></td>
+            <td>Rs. ${item.price}</td>
+            <td>
+              <div class="qty-control">
+                <button onclick="changeQty('${item.name}', ${item.price}, -1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty('${item.name}', ${item.price}, 1)">+</button>
+              </div>
+            </td>
+            <td>Rs. ${item.subtotal}</td>
+            <td><button class="btn-remove" onclick="removeByName('${item.name}')">🗑️</button></td>
+          </tr>`;
+      });
+
+      let delivery = subtotal >= 2000 ? 0 : (subtotal > 0 ? 200 : 0);
+
+      document.getElementById('subtotalAmt').textContent = subtotal;
+      document.getElementById('deliveryAmt').textContent = delivery === 0 && subtotal > 0 ? 'FREE 🚚' : delivery;
+      document.getElementById('total').textContent = subtotal + delivery;
+
+      /* progress to free gift */
+      let progressEl = document.getElementById('giftProgress');
+      let giftEl     = document.getElementById('freeGiftMsg');
+
+      if (subtotal >= 10000) {
+        if (giftEl)     giftEl.classList.remove('hidden');
+        if (progressEl) { progressEl.textContent = ''; progressEl.classList.add('hidden'); }
+      } else {
+        if (giftEl)     giftEl.classList.add('hidden');
+        if (progressEl) { progressEl.textContent = `Spend Rs. ${10000 - subtotal} more for a FREE gift! 🎁`; progressEl.classList.remove('hidden'); }
+      }
+      updateCartCount();
+    }
+
+    function changeQty(name, price, delta) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (delta === 1) {
+        cart.push({ name, price });
+      } else {
+        let idx = cart.findIndex(i => i.name === name);
+        if (idx > -1) cart.splice(idx, 1);
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function removeByName(name) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(i => i.name !== name);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      loadCart();
+      updateCartCount();
+    }
+
+    function goCheckout() {
+      window.location.href = 'checkout.html';
+    }
+  </script>
+
+</body>
+</html>
+
+

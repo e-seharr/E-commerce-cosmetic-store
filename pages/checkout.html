@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — E-commerce Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+</head>
+<body>
+
+  <nav>
+  <a href="../index.html">E-commerce Cosmetics Store</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+  <div class="checkout-layout">
+    <div class="checkout-form">
+      <h2>Billing Details</h2>
+      <form onsubmit="placeOrder(event)">
+        <div><label>Full Name</label><input type="text" id="fname" placeholder="Full Name" required></div>
+        <div><label>Phone Number</label><input type="tel" id="phone" placeholder="03xxxxxxxxx" required></div>
+        <div><label>City</label><input type="text" id="city" placeholder="City" required></div>
+        <div><label>Postal Code</label><input type="text" id="postal" placeholder="Postal Code" required></div>
+        <div><label>Full Address</label><textarea id="address" rows="3" placeholder="Full Address" required></textarea></div>
+        <div>
+          <label>Shipping Method</label>
+          <div class="select-container">
+            <select id="shipping" required>
+              <option value="">Select Shipping Method</option>
+              <option>Standard Delivery (Rs 200)</option>
+              <option>Express Delivery (Rs 400)</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label>Payment Method</label>
+          <div class="select-container">
+            <select id="payment" required>
+              <option value="">Select Payment Method</option>
+              <option>Cash on Delivery</option>
+              <option>JazzCash</option>
+              <option>EasyPaisa</option>
+              <option>Card</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div id="orderItems"></div>
+      <p>Subtotal: Rs. <span id="subtotal">0</span></p>
+      <p>Delivery: Rs. <span id="delivery">200</span></p>
+      <h3>Total: Rs. <span id="total">0</span></h3>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div><h2>E-commerce Cosmetics Store</h2><p>Premium beauty products for everyone.</p></div>
+      <div>
+        <h3>Pages</h3>
+        <a href="../index.html">Home</a>
+        <a href="cart.html">Cart</a>
+      </div>
+    </div>
+    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
+  </footer>
+
+  <script src="../jsFile/jsFunction.js"></script>
+  <script>
+    function initNavbar() {
+      let toggle = document.getElementById('menuToggle');
+      let menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      }
+    }
+
+    window.onload = function(){ initNavbar(); loadOrderSummary(); };
+  </script>
+
+</body>
+</html>
+
