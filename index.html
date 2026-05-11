@@ -185,39 +185,35 @@
     updateCartCount();
   };
 
-  /* index.html is in root, so navbar.html is at pages/navbar.html */
+  /* index.html is in root — inject navbar directly, no fetch needed */
   function loadRootNavbar() {
-    fetch('pages/navbar.html')
-      .then(function(r) { return r.text(); })
-      .then(function(html) {
-        /* fix relative hrefs — navbar links use relative paths for /pages/ context,
-           so from root we need to prepend pages/ to same-folder links */
-        html = html.replace(/href="(?!\.\.\/|http|#)([^"]+)"/g, function(match, path) {
-          /* already has pages/ or is index.html — leave alone */
-          if (path.startsWith('pages/') || path === '../index.html') return match;
-          /* links like products.html → pages/products.html */
-          return 'href="pages/' + path + '"';
+    var navHTML = '<nav>'
+      + '<a href="index.html">E-commerce Cosmetics Store</a>'
+      + '<button class="menu-toggle" id="menuToggle" aria-expanded="false">'
+      + '<span></span><span></span><span></span>'
+      + '</button>'
+      + '<ul id="navMenu">'
+      + '<li><a href="index.html">Home</a></li>'
+      + '<li><a href="pages/products.html">Products</a></li>'
+      + '<li><a href="pages/cart.html">Cart <span id="cartCount"></span></a></li>'
+      + '<li><a href="pages/contact.html">Contact</a></li>'
+      + '<li><a href="pages/login.html">Login</a></li>'
+      + '<li><a href="pages/dashboard.html">Dashboard</a></li>'
+      + '</ul>'
+      + '</nav>';
+
+    var el = document.getElementById('navbar-placeholder');
+    if (el) {
+      el.innerHTML = navHTML;
+      var toggle = document.getElementById('menuToggle');
+      var menu   = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+          menu.classList.toggle('open');
         });
-        /* fix the logo link: ../index.html → index.html */
-        html = html.replace('href="../index.html"', 'href="index.html"');
-        var el = document.getElementById('navbar-placeholder');
-        if (el) {
-          el.innerHTML = html;
-          var toggle = document.getElementById('menuToggle');
-          var menu   = document.getElementById('navMenu');
-          if (toggle && menu) {
-            toggle.addEventListener('click', function() {
-              menu.classList.toggle('open');
-            });
-          }
-          updateCartCount();
-        }
-      })
-      .catch(function() {
-        /* file:// protocol fallback — inject navbar manually */
-        var el = document.getElementById('navbar-placeholder');
-        if (el) el.innerHTML = '<nav><a href="index.html">E-commerce Cosmetics Store</a><ul id="navMenu"><li><a href="index.html">Home</a></li><li><a href="pages/products.html">Products</a></li><li><a href="pages/cart.html">Cart <span id="cartCount"></span></a></li><li><a href="pages/contact.html">Contact</a></li><li><a href="pages/login.html">Login</a></li><li><a href="pages/dashboard.html">Dashboard</a></li></ul></nav>';
-      });
+      }
+      updateCartCount();
+    }
   }
 
   function homeFilter(type, btn) {

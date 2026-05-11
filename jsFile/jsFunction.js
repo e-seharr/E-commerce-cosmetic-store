@@ -2,28 +2,37 @@
    NAVBAR LOADER
    Call loadNavbar() on any page inside /pages/
    The page must have: <div id="navbar-placeholder"></div>
+   Works on GitHub Pages, live server, and file:// protocol.
    ========================================================= */
 function loadNavbar() {
-  fetch('navbar.html')
-    .then(function(r) { return r.text(); })
-    .then(function(html) {
-      var el = document.getElementById('navbar-placeholder');
-      if (el) {
-        el.innerHTML = html;
-        /* init hamburger after injection */
-        var toggle = document.getElementById('menuToggle');
-        var menu   = document.getElementById('navMenu');
-        if (toggle && menu) {
-          toggle.addEventListener('click', function() {
-            menu.classList.toggle('open');
-          });
-        }
-        updateCartCount();
-      }
-    })
-    .catch(function() {
-      /* fetch blocked (e.g. file:// protocol) — navbar already hardcoded, skip */
-    });
+  /* Hardcoded navbar — always works regardless of protocol */
+  var navHTML = '<nav>'
+    + '<a href="../index.html">E-commerce Cosmetics Store</a>'
+    + '<button class="menu-toggle" id="menuToggle" aria-expanded="false">'
+    + '<span></span><span></span><span></span>'
+    + '</button>'
+    + '<ul id="navMenu">'
+    + '<li><a href="../index.html">Home</a></li>'
+    + '<li><a href="products.html">Products</a></li>'
+    + '<li><a href="cart.html">Cart <span id="cartCount"></span></a></li>'
+    + '<li><a href="contact.html">Contact</a></li>'
+    + '<li><a href="login.html">Login</a></li>'
+    + '<li><a href="dashboard.html">Dashboard</a></li>'
+    + '</ul>'
+    + '</nav>';
+
+  var el = document.getElementById('navbar-placeholder');
+  if (el) {
+    el.innerHTML = navHTML;
+    var toggle = document.getElementById('menuToggle');
+    var menu   = document.getElementById('navMenu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function() {
+        menu.classList.toggle('open');
+      });
+    }
+    updateCartCount();
+  }
 }
 
 /* =========================================================
