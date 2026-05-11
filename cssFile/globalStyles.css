@@ -1473,3 +1473,39 @@ footer h3    { color: white; font-size: 14px; margin-bottom: 10px; }
 
 
 
+
+/* =========================================================
+   HOME PAGE — PRODUCTS SECTION WITH FILTER
+   ========================================================= */
+.home-products-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.home-products-section .filter-bar {
+  margin: 16px 0;
+  justify-content: center;
+}
+
+.home-products-section .filter-btn {
+  padding: 9px 20px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: 600;
+  background: white;
+  color: var(--brand-primary-color);
+  border: 2px solid var(--brand-primary-color);
+  width: auto;
+  margin-top: 0;
+  transition: var(--transition);
+}
+
+.home-products-section .filter-btn:hover,
+.home-products-section .filter-btn.active {
+  background: linear-gradient(135deg, #ff6b9d, #ff8fb8);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255,107,157,0.35);
+}

@@ -125,6 +125,10 @@
         document.getElementById('cartItemCount').textContent = '0 items';
         let el = document.getElementById('cartCount');
         if (el) el.textContent = '';
+        // hide gift messages when cart is empty
+        document.getElementById('freeGiftMsg').classList.add('hidden');
+        document.getElementById('giftProgress').classList.add('hidden');
+        document.getElementById('giftProgress').textContent = '';
         return;
       }
 

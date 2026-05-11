@@ -137,6 +137,33 @@ function placeOrder(event) {
     alert('Invalid phone number — must be 11 digits');
     return;
   }
+
+  /* Save order to localStorage for dashboard */
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let subtotal = cart.reduce((s, i) => s + i.price, 0);
+  let delivery = subtotal >= 2000 ? 0 : (cart.length > 0 ? 200 : 0);
+  let total    = subtotal + delivery;
+
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
+  let orderId = 'ORD-' + Date.now();
+  orders.push({
+    id:       orderId,
+    customer: name,
+    phone:    phone,
+    city:     city,
+    address:  address,
+    payment:  payment,
+    shipping: shipping,
+    items:    cart,
+    subtotal: subtotal,
+    delivery: delivery,
+    total:    total,
+    date:     new Date().toLocaleDateString(),
+    status:   'New',
+    seen:     false
+  });
+  localStorage.setItem('orders', JSON.stringify(orders));
+
   localStorage.removeItem('cart');
   alert('🎉 Order placed successfully! Thank you for shopping with E-commerce Cosmetics Store.');
   window.location.href = '../index.html';

@@ -1,159 +1,208 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — E-commerce Cosmetics Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../cssFile/globalStyles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - E-commerce Cosmetics Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../cssFile/globalStyles.css">
+<style>
+.dash-hero{background:linear-gradient(135deg,#ff6b9d,#ff8fb8,#ffd6e8);padding:40px;border-radius:20px;margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.dash-hero h1{color:white;font-size:30px;margin:0 0 6px;}
+.dash-hero p{color:rgba(255,255,255,0.88);font-size:14px;margin:0;}
+.dash-hero-emoji{font-size:60px;line-height:1;}
+.sec-title{font-size:20px;font-weight:700;margin:0 0 4px;color:#1f1f1f;}
+.sec-divider{width:40px;height:3px;background:linear-gradient(90deg,#ff6b9d,#ff8fb8);border-radius:2px;margin:8px 0 20px;border:none;}
+.stat-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:36px;}.stat-grid .stat-card{flex:1;min-width:150px;max-width:200px;}
+.stat-card{background:white;border-radius:16px;padding:22px 18px;text-align:center;box-shadow:0 4px 18px rgba(255,107,157,0.1);border:1px solid #ffe0ee;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s;border-top:4px solid #ff6b9d;}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(255,107,157,0.28);}
+.stat-icon{font-size:28px;margin-bottom:8px;}
+.stat-num{font-size:26px;font-weight:700;color:#ff6b9d;margin:0;}
+.stat-lbl{font-size:12px;color:#888;margin:4px 0 0;font-weight:500;}
+.action-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:36px;}.action-grid .action-card{flex:1;min-width:200px;max-width:260px;}
+.action-card{background:white;border-radius:16px;padding:24px 20px;box-shadow:0 4px 18px rgba(255,107,157,0.08);border:1px solid #ffe0ee;transition:transform 0.25s,box-shadow 0.25s;display:flex;flex-direction:column;}
+.action-card:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(255,107,157,0.22);}
+.action-card h3{font-size:15px;margin:0 0 8px;color:#1f1f1f;}
+.action-card p{font-size:12px;color:#888;margin:0 0 14px;line-height:1.6;flex:1;}
+.action-card button{width:100%;margin-top:auto;padding:9px;font-size:13px;border-radius:20px;}
+.tab-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+.tab-btn{padding:8px 20px;border-radius:20px;border:1.5px solid #ff6b9d;background:white;color:#ff6b9d;font-weight:600;font-size:13px;cursor:pointer;width:auto;margin-top:0;transition:0.2s;}
+.tab-btn.active,.tab-btn:hover{background:linear-gradient(135deg,#ff6b9d,#ff8fb8);color:white;border-color:transparent;transform:none;box-shadow:none;}
+.dash-admin-label{color:rgba(255,255,255,0.75);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin:0 0 6px;}
+.stat-num-alert{color:#e8527f;}
+.badge-hidden{display:none;}
+.dash-desc{font-size:13px;color:#888;margin:0 0 14px;}
+.sec-title-gap{margin-top:30px;}
+.dash-form-inner{margin:0;box-shadow:none;padding:0;}
+.dash-tab{display:none;}
+.dash-tab.active{display:block;}
+.dash-box{background:white;border-radius:16px;padding:24px;box-shadow:0 4px 18px rgba(255,107,157,0.08);border:1px solid #ffe0ee;margin-bottom:24px;}
+.view-all-btn{padding:8px 22px;border-radius:20px;background:linear-gradient(135deg,#ff6b9d,#ff8fb8);color:white;font-size:13px;font-weight:600;cursor:pointer;border:none;width:auto;margin:0 0 16px;}
+.view-all-btn:hover{background:linear-gradient(135deg,#e8527f,#ff6b9d);transform:translateY(-2px);}
+.badge-new{display:inline-block;background:#e8527f;color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px;}
+.order-new{color:#e8527f;font-weight:700;}
+.order-seen{color:#28a745;font-weight:600;}
+.order-items-small{font-size:12px;color:#888;}
+.activity-log{list-style:none;padding:0;margin:0;}
+.activity-log li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #fff0f5;font-size:13px;color:#555;}
+.activity-log li:last-child{border-bottom:none;}
+.log-icon{font-size:18px;min-width:28px;text-align:center;}
+.log-time{font-size:11px;color:#aaa;margin-left:auto;white-space:nowrap;}
+#stockChart{max-width:100%;border-radius:10px;}
+</style>
 </head>
 <body>
-
-  <nav>
-  <a href="../index.html">E-commerce Cosmetics Store</a>
-  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <ul id="navMenu">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-  </ul>
+<nav>
+<a href="../index.html">E-commerce Cosmetics Store</a>
+<button class="menu-toggle" id="menuToggle" aria-expanded="false"><span></span><span></span><span></span></button>
+<ul id="navMenu">
+<li><a href="../index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="login.html">Login</a></li>
+<li><a href="dashboard.html">Dashboard</a></li>
+</ul>
 </nav>
 
-  <div class="page">
-    <h2>Admin Dashboard 📊</h2>
-    <p>Manage your E-commerce Cosmetics Store store — stock, orders, and more.</p>
+<script>
+function showTab(name,scroll){
+  document.querySelectorAll(".dash-tab").forEach(function(s){s.classList.remove("active");});
+  document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
+  var sec=document.getElementById("section-"+name);
+  var btn=document.getElementById("tab-"+name);
+  if(sec)sec.classList.add("active");
+  if(btn)btn.classList.add("active");
+  if(name==="chart"){var s=JSON.parse(localStorage.getItem("stock"))||getDefaultStock();drawChart(s);drawOrdersChart();}
+  if(name==="categories")loadCategoryTable();
+  if(name==="orders")loadOrders();
+  if(name==="log")renderLog();if(scroll){var el=document.getElementById("section-"+name);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}
+  
+}
+</script>
 
-    <div class="stat-container">
-      <div class="stat-card" onclick="document.getElementById('stockSection').scrollIntoView({behavior:'smooth'})">
-        <h2 id="totalProducts">0</h2>
-        <h4>Total Products</h4>
-      </div>
-      <div class="stat-card" onclick="document.getElementById('stockSection').scrollIntoView({behavior:'smooth'})">
-        <h2 id="totalQty">0</h2>
-        <h4>Total Stock Qty</h4>
-      </div>
-      <div class="stat-card" onclick="document.getElementById('addStockSection').scrollIntoView({behavior:'smooth'})">
-        <h2>➕</h2>
-        <h4>Insert New Stock</h4>
-      </div>
-      <div class="stat-card" onclick="document.getElementById('stockSection').scrollIntoView({behavior:'smooth'})">
-        <h2>✏️</h2>
-        <h4>Update Stock</h4>
-      </div>
-      <div class="stat-card" onclick="document.getElementById('stockSection').scrollIntoView({behavior:'smooth'})">
-        <h2>🗑️</h2>
-        <h4>Delete Stock</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='products.html'">
-        <h2>🛍️</h2>
-        <h4>View Products</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='cart.html'">
-        <h2>🛒</h2>
-        <h4>View Cart</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='checkout.html'">
-        <h2>📦</h2>
-        <h4>Orders</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='categories.html'">
-        <h2>💄</h2>
-        <h4>Categories</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='contact.html'">
-        <h2>📩</h2>
-        <h4>Contact</h4>
-      </div>
-      <div class="stat-card" onclick="window.location.href='login.html'">
-        <h2>🚪</h2>
-        <h4>Logout</h4>
-      </div>
-      <div class="stat-card" onclick="document.getElementById('chartSection').scrollIntoView({behavior:'smooth'})">
-        <h2>📊</h2>
-        <h4>View Chart</h4>
-      </div>
-    </div>
+<div class="page">
+<div class="dash-hero">
+<div>
+<p class="dash-admin-label">Admin Panel</p>
+<h1>Inventory Dashboard</h1>
+<p>Manage your cosmetics store - stock, orders, charts, and more.</p>
+</div>
+<div class="dash-hero-emoji">&#128200;</div>
+</div>
 
-    <h3 id="chartSection">Stock by Category</h3>
-    <canvas id="stockChart" width="600" height="280"></canvas>
+<h2 class="sec-title">Store Statistics</h2>
 
-    <h3 id="stockSection">All Stock</h3>
-    <div class="table-container">
-      <table style="min-width:500px; max-width:100%;">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="stockTable"></tbody>
-      </table>
-    </div>
+<div class="stat-grid">
+<div class="stat-card" onclick="showTab('stock',true)"><div class="stat-icon">&#128230;</div><p class="stat-num" id="totalProducts">0</p><p class="stat-lbl">Total Products</p></div>
+<div class="stat-card" onclick="showTab('stock',true)"><div class="stat-icon">&#128202;</div><p class="stat-num" id="totalQty">0</p><p class="stat-lbl">Total Stock Qty</p></div>
+<div class="stat-card" onclick="showTab('orders',true)"><div class="stat-icon">&#128722;</div><p class="stat-num" id="totalOrders">0</p><p class="stat-lbl">Total Orders</p></div>
+<div class="stat-card" onclick="showTab('orders',true)"><div class="stat-icon">&#128276;</div><p class="stat-num stat-num-alert" id="newOrdersCount">0</p><p class="stat-lbl">New Orders</p></div>
+<div class="stat-card" onclick="showTab('categories',true)"><div class="stat-icon">&#128132;</div><p class="stat-num" id="totalCats">0</p><p class="stat-lbl">Categories</p></div>
+</div>
 
-    <h3 id="addStockSection">Add New Product</h3>
-    <div class="form-container">
-      <form onsubmit="insertStock(event)">
-        <div><label>Product Name</label><input type="text" id="sname" placeholder="Product name" required></div>
-        <div>
-          <label>Category</label>
-          <div class="select-container">
-            <select id="scategory" required>
-              <option value="">Select Category</option>
-              <option value="Makeup">Makeup</option>
-              <option value="Skincare">Skincare</option>
-              <option value="Haircare">Haircare</option>
-              <option value="Nailcare">Nailcare</option>
-            </select>
-          </div>
-        </div>
-        <div><label>Price (Rs.)</label><input type="number" id="sprice" placeholder="Price" required></div>
-        <div><label>Quantity</label><input type="number" id="sqty" placeholder="Quantity" required></div>
-        <button type="submit">Add to Stock</button>
-      </form>
-    </div>
-  </div>
+<h2 class="sec-title">Dashboard Actions</h2>
 
-  <footer>
-    <div class="footer-container">
-      <div><h2>E-commerce Cosmetics Store</h2><p>Admin Panel — Manage your store.</p></div>
-      <div>
-        <h3>Quick Links</h3>
-        <a href="../index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="login.html">Logout</a>
-      </div>
-    </div>
-    <p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
-  </footer>
+<div class="action-grid">
+<div class="action-card"><h3>&#128230; View All Stock</h3><p>Browse the complete inventory with product name, category, price and quantity.</p><button onclick="showTab('stock',true)">View Stock</button></div>
+<div class="action-card"><h3>&#10133; Add New Product</h3><p>Insert a new product into the inventory by filling in the details.</p><button onclick="showTab('add',true)">Add Product</button></div>
+<div class="action-card"><h3>&#9999; Update Stock</h3><p>Edit existing inventory records using the Edit button in the stock table.</p><button onclick="showTab('stock',true)">Update Stock</button></div>
+<div class="action-card"><h3>&#128465; Delete Stock</h3><p>Remove products from inventory using the Delete button in the table.</p><button onclick="showTab('stock',true)">Delete Stock</button></div>
+<div class="action-card"><h3>&#128202; Graphical View</h3><p>View bar chart of stock quantities per category for easy analysis.</p><button onclick="showTab('chart',true)">View Chart</button></div>
+<div class="action-card"><h3>&#128722; Orders</h3><p>Track all customer orders, new and seen, with full bill details.</p><button onclick="showTab('orders',true)">View Orders</button></div>
+<div class="action-card"><h3>&#128132; Categories</h3><p>View product categories with price ranges and stock quantities.</p><button onclick="showTab('categories',true)">View Categories</button></div>
+<div class="action-card"><h3>&#128203; Activity Log</h3><p>Track all recent inventory changes - inserts, updates, and deletions.</p><button onclick="showTab('log',true)">View Log</button></div>
+</div>
 
-  <script src="../jsFile/jsFunction.js"></script>
-  <script>
-    function initNavbar() {
-      let toggle = document.getElementById('menuToggle');
-      let menu = document.getElementById('navMenu');
-      if (toggle && menu) {
-        toggle.addEventListener('click', () => menu.classList.toggle('open'));
-      }
-    }
+<div class="tab-btns">
+<button class="tab-btn" id="tab-stock" onclick="showTab('stock',true)">&#128230; Stock</button>
+<button class="tab-btn" id="tab-orders" onclick="showTab('orders',true)">&#128722; Orders <span id="newBadge" class="badge-new badge-hidden">0</span></button>
+<button class="tab-btn" id="tab-chart" onclick="showTab('chart',true)">&#128202; Chart</button>
+<button class="tab-btn" id="tab-categories" onclick="showTab('categories',true)">&#128132; Categories</button>
+<button class="tab-btn" id="tab-add" onclick="showTab('add',true)">&#10133; Add Product</button>
+<button class="tab-btn" id="tab-log" onclick="showTab('log',true)">&#128203; Activity Log</button>
+</div>
 
-    window.onload = function () {
-      initNavbar();
-      loadStock();
-      let stock = JSON.parse(localStorage.getItem('stock')) || getDefaultStock();
-      document.getElementById('totalProducts').textContent = stock.length;
-      document.getElementById('totalQty').textContent = stock.reduce((s, i) => s + i.qty, 0);
-    };
-  </script>
+<div id="section-stock" class="dash-tab">
+<h2 class="sec-title">All Inventory Records</h2>
+<div class="dash-box">
+<button class="view-all-btn" onclick="loadStockWithStatus()">&#128260; View All Records</button>
+<div class="table-container"><table style="min-width:500px;"><thead><tr><th>#</th><th>Product Name</th><th>Category</th><th>Price (Rs.)</th><th>Qty</th><th>Status</th><th>Actions</th></tr></thead><tbody id="stockTable"></tbody></table></div>
+</div>
+</div>
 
+<div id="section-orders" class="dash-tab">
+<h2 class="sec-title">New Orders <span id="newOrdersBadge" class="badge-new">0</span></h2>
+<div class="dash-box">
+<p class="dash-desc">Orders placed by customers not yet reviewed.</p>
+<div class="table-container"><table style="min-width:700px;"><thead><tr><th>Order ID</th><th>Customer</th><th>City</th><th>Items</th><th>Total Bill</th><th>Payment</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="newOrdersTable"></tbody></table></div>
+</div>
+<h2 class="sec-title">All Customer Orders</h2>
+<div class="dash-box">
+<div class="table-container"><table style="min-width:700px;"><thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Products</th><th>Subtotal</th><th>Delivery</th><th>Total</th><th>Payment</th><th>Date</th><th>Status</th></tr></thead><tbody id="allOrdersTable"></tbody></table></div>
+</div>
+</div>
+
+<div id="section-chart" class="dash-tab">
+<h2 class="sec-title">Stock Graphical View</h2>
+<div class="dash-box"><p class="dash-desc">Bar chart showing total stock quantity per category.</p><canvas id="stockChart" width="600" height="280"></canvas></div>
+<h2 class="sec-title sec-title-gap">Orders Overview</h2>
+<div class="dash-box"><p class="dash-desc">Bar chart showing total orders received, new (unseen) and seen orders.</p><canvas id="ordersChart" width="600" height="260"></canvas></div>
+</div>
+
+<div id="section-categories" class="dash-tab">
+<h2 class="sec-title">Product Categories</h2>
+<div class="dash-box"><div class="table-container"><table style="min-width:500px;"><thead><tr><th>Category</th><th>Total Products</th><th>Min Price</th><th>Max Price</th><th>Avg Price</th><th>Total Qty</th></tr></thead><tbody id="categoryTable"></tbody></table></div></div>
+</div>
+
+<div id="section-add" class="dash-tab">
+<h2 class="sec-title">Add New Product</h2>
+<div class="dash-box">
+<div class="form-container dash-form-inner">
+<form onsubmit="insertStockNew(event)">
+<div><label>Product Name</label><input type="text" id="sname" placeholder="Product name" required></div>
+<div><label>Category</label><select id="scategory" required><option value="">Select Category</option><option value="Makeup">Makeup</option><option value="Skincare">Skincare</option><option value="Haircare">Haircare</option><option value="Nailcare">Nailcare</option></select></div>
+<div><label>Price (Rs.)</label><input type="number" id="sprice" placeholder="Price" required></div>
+<div><label>Quantity</label><input type="number" id="sqty" placeholder="Quantity" required></div>
+<button type="submit">Add to Stock</button>
+</form>
+</div>
+</div>
+</div>
+
+<div id="section-log" class="dash-tab">
+<h2 class="sec-title">Recent Activity Log</h2>
+<div class="dash-box"><p class="dash-desc">Latest actions performed on the inventory.</p><ul class="activity-log" id="activityLog"><li><span class="log-icon">&#128203;</span> No activity yet.</li></ul></div>
+</div>
+
+</div>
+<footer>
+<div class="footer-container">
+<div><h2>E-commerce Cosmetics Store</h2><p>Admin Panel - Manage your store.</p></div>
+<div><h3>Quick Links</h3><a href="../index.html">Home</a><a href="products.html">Products</a><a href="login.html">Logout</a></div>
+</div>
+<p>2026 E-commerce Cosmetics Store. All rights reserved.</p>
+</footer>
+
+<script src="../jsFile/jsFunction.js"></script>
+<script>
+function initNavbar(){var t=document.getElementById("menuToggle"),m=document.getElementById("navMenu");if(t&&m)t.addEventListener("click",function(){m.classList.toggle("open");});}
+function loadStockWithStatus(){var stock=JSON.parse(localStorage.getItem("stock"))||getDefaultStock();var tbody=document.getElementById("stockTable");if(!tbody)return;tbody.innerHTML="";stock.forEach(function(item,i){var status=item.qty<=5?"<span style='color:#e8527f;font-weight:700'>Low Stock</span>":item.qty<=15?"<span style='color:#f0a500;font-weight:600'>Medium</span>":"<span style='color:#28a745;font-weight:600'>Good</span>";tbody.innerHTML+="<tr><td>"+(i+1)+"</td><td><strong>"+item.name+"</strong></td><td>"+item.category+"</td><td>Rs. "+item.price+"</td><td>"+item.qty+"</td><td>"+status+"</td><td><button onclick='editStock("+i+")'>Edit</button> <button onclick='deleteStockNew("+i+")'>Delete</button></td></tr>";});document.getElementById("totalProducts").textContent=stock.length;document.getElementById("totalQty").textContent=stock.reduce(function(s,i){return s+i.qty;},0);var cats=[...new Set(stock.map(function(i){return i.category;}))];document.getElementById("totalCats").textContent=cats.length;drawChart(stock);}
+function loadOrders(){var orders=JSON.parse(localStorage.getItem("orders"))||[];var nt=document.getElementById("newOrdersTable"),at=document.getElementById("allOrdersTable");if(!nt||!at)return;var newO=orders.filter(function(o){return!o.seen;});document.getElementById("newOrdersBadge").textContent=newO.length;nt.innerHTML="";if(newO.length===0){nt.innerHTML="<tr><td colspan=9 class=table-empty>No new orders</td></tr>";}else{newO.forEach(function(o){var items=o.items.map(function(it){return it.name;}).join(", ");nt.innerHTML+="<tr><td>"+o.id+"</td><td>"+o.customer+"</td><td>"+o.city+"</td><td class=order-items-small>"+items+"</td><td><strong>Rs. "+o.total+"</strong></td><td>"+o.payment+"</td><td>"+o.date+"</td><td class=order-new>New</td><td><button onclick='markSeen(\""+o.id+"\")'>Mark Seen</button></td></tr>";});}at.innerHTML="";if(orders.length===0){at.innerHTML="<tr><td colspan=10 class=table-empty>No orders yet</td></tr>";}else{orders.forEach(function(o){var items=o.items.map(function(it){return it.name+" (Rs."+it.price+")";}).join(", ");var sc=o.seen?"order-seen":"order-new",st=o.seen?"Seen":"New";at.innerHTML+="<tr><td>"+o.id+"</td><td>"+o.customer+"</td><td>"+o.phone+"</td><td class=order-items-small>"+items+"</td><td>Rs. "+o.subtotal+"</td><td>Rs. "+o.delivery+"</td><td><strong>Rs. "+o.total+"</strong></td><td>"+o.payment+"</td><td>"+o.date+"</td><td class="+sc+">"+st+"</td></tr>";});}}
+function markSeen(id){var orders=JSON.parse(localStorage.getItem("orders"))||[];var idx=orders.findIndex(function(o){return o.id===id;});if(idx>-1){orders[idx].seen=true;localStorage.setItem("orders",JSON.stringify(orders));loadOrders();updateOrderBadge();}}
+function updateOrderBadge(){var orders=JSON.parse(localStorage.getItem("orders"))||[];var n=orders.filter(function(o){return!o.seen;}).length;var badge=document.getElementById("newBadge"),cnt=document.getElementById("newOrdersCount"),tot=document.getElementById("totalOrders");if(badge){badge.textContent=n;badge.style.display=n>0?"inline-block":"none";}if(cnt)cnt.textContent=n;if(tot)tot.textContent=orders.length;}
+function loadCategoryTable(){var stock=JSON.parse(localStorage.getItem("stock"))||getDefaultStock();var tbody=document.getElementById("categoryTable");if(!tbody)return;var cats={};stock.forEach(function(item){if(!cats[item.category])cats[item.category]={count:0,prices:[],qty:0};cats[item.category].count++;cats[item.category].prices.push(item.price);cats[item.category].qty+=item.qty;});tbody.innerHTML="";Object.entries(cats).forEach(function(e){var cat=e[0],d=e[1];var min=Math.min.apply(null,d.prices),max=Math.max.apply(null,d.prices),avg=Math.round(d.prices.reduce(function(a,b){return a+b;},0)/d.prices.length);tbody.innerHTML+="<tr><td><strong>"+cat+"</strong></td><td>"+d.count+"</td><td>Rs. "+min+"</td><td>Rs. "+max+"</td><td>Rs. "+avg+"</td><td>"+d.qty+"</td></tr>";});}
+function addLog(msg,icon){var logs=JSON.parse(localStorage.getItem("activityLog"))||[];var time=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});logs.unshift({msg:msg,icon:icon,time:time});if(logs.length>20)logs=logs.slice(0,20);localStorage.setItem("activityLog",JSON.stringify(logs));}
+function renderLog(){var logs=JSON.parse(localStorage.getItem("activityLog"))||[];var ul=document.getElementById("activityLog");if(!ul)return;if(logs.length===0){ul.innerHTML="<li><span class=log-icon>&#128203;</span> No activity yet.</li>";return;}ul.innerHTML=logs.map(function(l){return"<li><span class=log-icon>"+l.icon+"</span>"+l.msg+"<span class=log-time>"+l.time+"</span></li>";}).join("");}
+function insertStockNew(event){event.preventDefault();var name=document.getElementById("sname").value.trim(),category=document.getElementById("scategory").value,price=parseInt(document.getElementById("sprice").value),qty=parseInt(document.getElementById("sqty").value);if(!name||!category||!price||!qty){alert("Fill all fields");return;}var stock=JSON.parse(localStorage.getItem("stock"))||[];stock.push({name:name,category:category,price:price,qty:qty});localStorage.setItem("stock",JSON.stringify(stock));addLog("Added: "+name+" ("+category+")","&#10133;");alert("Product added!");event.target.reset();loadStockWithStatus();}
+function deleteStockNew(index){if(!confirm("Delete this item?"))return;var stock=JSON.parse(localStorage.getItem("stock"))||[];var name=stock[index].name;stock.splice(index,1);localStorage.setItem("stock",JSON.stringify(stock));addLog("Deleted: "+name,"&#128465;");loadStockWithStatus();}
+function editStock(index){var stock=JSON.parse(localStorage.getItem("stock"))||[];var item=stock[index];var newName=prompt("Product Name:",item.name),newPrice=prompt("Price:",item.price),newQty=prompt("Quantity:",item.qty);if(newName&&newPrice&&newQty){stock[index]=Object.assign({},item,{name:newName,price:parseInt(newPrice),qty:parseInt(newQty)});localStorage.setItem("stock",JSON.stringify(stock));addLog("Updated: "+newName,"&#9999;");loadStockWithStatus();}}
+function drawOrdersChart(){var orders=JSON.parse(localStorage.getItem("orders"))||[];var total=orders.length,newO=orders.filter(function(o){return!o.seen;}).length,seen=orders.filter(function(o){return o.seen;}).length;var canvas=document.getElementById("ordersChart");if(!canvas)return;var ctx=canvas.getContext("2d");ctx.clearRect(0,0,canvas.width,canvas.height);var labels=["Total Orders","New Orders","Seen Orders"];var values=[total,newO,seen];var colors=["#ff6b9d","#e8527f","#ffd6e8"];var maxVal=Math.max.apply(null,values)||1;var barW=80,gap=60,padL=60,padB=50,chartH=canvas.height-padB-20;ctx.strokeStyle="#eee";ctx.beginPath();ctx.moveTo(padL,10);ctx.lineTo(padL,canvas.height-padB);ctx.lineTo(canvas.width-10,canvas.height-padB);ctx.stroke();for(var i=0;i<3;i++){var x=padL+i*(barW+gap)+gap;var barH=maxVal>0?(values[i]/maxVal)*chartH:0;var y=canvas.height-padB-barH;ctx.fillStyle=colors[i];ctx.beginPath();ctx.roundRect?ctx.roundRect(x,y,barW,barH,6):ctx.rect(x,y,barW,barH);ctx.fill();ctx.fillStyle="#333";ctx.font="bold 14px Poppins,sans-serif";ctx.textAlign="center";ctx.fillText(values[i],x+barW/2,y-8);ctx.fillStyle="#555";ctx.font="12px Poppins,sans-serif";ctx.fillText(labels[i],x+barW/2,canvas.height-padB+18);}}
+window.onload=function(){initNavbar();updateCartCount();loadStockWithStatus();updateOrderBadge();showTab("stock");};
+</script>
 </body>
 </html>
+
+
+
 
