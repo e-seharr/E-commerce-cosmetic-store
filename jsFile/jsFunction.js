@@ -1,20 +1,66 @@
 /* =========================================================
-   NAVBAR — hardcoded in each page, no fetch needed
-   ========================================================= */
-
-/* =========================================================
-   NAVBAR LOADER — call loadNavbar() on pages inside /pages/
+   NAVBAR LOADER
+   Call loadNavbar() on any page inside /pages/
+   The page must have: <div id="navbar-placeholder"></div>
    ========================================================= */
 function loadNavbar() {
   fetch('navbar.html')
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById('navbar-placeholder').innerHTML = html;
-      updateCartCount();
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+      var el = document.getElementById('navbar-placeholder');
+      if (el) {
+        el.innerHTML = html;
+        /* init hamburger after injection */
+        var toggle = document.getElementById('menuToggle');
+        var menu   = document.getElementById('navMenu');
+        if (toggle && menu) {
+          toggle.addEventListener('click', function() {
+            menu.classList.toggle('open');
+          });
+        }
+        updateCartCount();
+      }
     })
-    .catch(() => {
-      /* fallback: navbar already hardcoded, do nothing */
+    .catch(function() {
+      /* fetch blocked (e.g. file:// protocol) — navbar already hardcoded, skip */
     });
+}
+
+/* =========================================================
+   TOAST NOTIFICATION
+   ========================================================= */
+function showToast(message, type) {
+  /* remove any existing toast */
+  var old = document.getElementById('kiro-toast');
+  if (old) old.remove();
+
+  var toast = document.createElement('div');
+  toast.id = 'kiro-toast';
+  toast.textContent = message;
+  toast.style.cssText = [
+    'position:fixed',
+    'bottom:28px',
+    'left:50%',
+    'transform:translateX(-50%)',
+    'background:' + (type === 'error' ? '#e8527f' : '#ff6b9d'),
+    'color:white',
+    'padding:12px 28px',
+    'border-radius:30px',
+    'font-family:Poppins,sans-serif',
+    'font-size:14px',
+    'font-weight:600',
+    'box-shadow:0 6px 20px rgba(0,0,0,0.18)',
+    'z-index:9999',
+    'opacity:1',
+    'transition:opacity 0.4s ease'
+  ].join(';');
+
+  document.body.appendChild(toast);
+
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    setTimeout(function() { toast.remove(); }, 400);
+  }, 3000);
 }
 
 /* =========================================================

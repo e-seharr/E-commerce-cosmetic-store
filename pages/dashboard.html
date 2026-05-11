@@ -9,18 +9,7 @@
 
 </head>
 <body>
-<nav>
-<a href="../index.html">E-commerce Cosmetics Store</a>
-<button class="menu-toggle" id="menuToggle" aria-expanded="false"><span></span><span></span><span></span></button>
-<ul id="navMenu">
-<li><a href="../index.html">Home</a></li>
-<li><a href="products.html">Products</a></li>
-<li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="login.html">Login</a></li>
-<li><a href="dashboard.html">Dashboard</a></li>
-</ul>
-</nav>
+<div id="navbar-placeholder"></div>
 
 <script>
 function showTab(name,scroll){
@@ -138,12 +127,11 @@ function showTab(name,scroll){
 <div><h2>E-commerce Cosmetics Store</h2><p>Admin Panel - Manage your store.</p></div>
 <div><h3>Quick Links</h3><a href="../index.html">Home</a><a href="products.html">Products</a><a href="login.html">Logout</a></div>
 </div>
-<p>2026 E-commerce Cosmetics Store. All rights reserved.</p>
+<p>© 2026 E-commerce Cosmetics Store. All rights reserved.</p>
 </footer>
 
 <script src="../jsFile/jsFunction.js"></script>
 <script>
-function initNavbar(){var t=document.getElementById("menuToggle"),m=document.getElementById("navMenu");if(t&&m)t.addEventListener("click",function(){m.classList.toggle("open");});}
 function loadStockWithStatus(){var stock=JSON.parse(localStorage.getItem("stock"))||getDefaultStock();var tbody=document.getElementById("stockTable");if(!tbody)return;tbody.innerHTML="";stock.forEach(function(item,i){var status=item.qty<=5?'<span class=status-low>Low Stock</span>':item.qty<=15?'<span class=status-mid>Medium</span>':'<span class=status-good>Good</span>';tbody.innerHTML+="<tr><td>"+(i+1)+"</td><td><strong>"+item.name+"</strong></td><td>"+item.category+"</td><td>Rs. "+item.price+"</td><td>"+item.qty+"</td><td>"+status+"</td><td><button onclick='editStock("+i+")'>Edit</button> <button onclick='deleteStockNew("+i+")'>Delete</button></td></tr>";});document.getElementById("totalProducts").textContent=stock.length;document.getElementById("totalQty").textContent=stock.reduce(function(s,i){return s+i.qty;},0);var cats=[...new Set(stock.map(function(i){return i.category;}))];document.getElementById("totalCats").textContent=cats.length;drawChart(stock);}
 function loadOrders(){var orders=JSON.parse(localStorage.getItem("orders"))||[];var nt=document.getElementById("newOrdersTable"),at=document.getElementById("allOrdersTable");if(!nt||!at)return;var newO=orders.filter(function(o){return!o.seen;});document.getElementById("newOrdersBadge").textContent=newO.length;nt.innerHTML="";if(newO.length===0){nt.innerHTML="<tr><td colspan=9 class=table-empty>No new orders</td></tr>";}else{newO.forEach(function(o){var items=o.items.map(function(it){return it.name;}).join(", ");nt.innerHTML+="<tr><td>"+o.id+"</td><td>"+o.customer+"</td><td>"+o.city+"</td><td class=order-items-small>"+items+"</td><td><strong>Rs. "+o.total+"</strong></td><td>"+o.payment+"</td><td>"+o.date+"</td><td class=order-new>New</td><td><button onclick='markSeen(\""+o.id+"\")'>Mark Seen</button></td></tr>";});}at.innerHTML="";if(orders.length===0){at.innerHTML="<tr><td colspan=10 class=table-empty>No orders yet</td></tr>";}else{orders.forEach(function(o){var items=o.items.map(function(it){return it.name+" (Rs."+it.price+")";}).join(", ");var sc=o.seen?"order-seen":"order-new",st=o.seen?"Seen":"New";at.innerHTML+="<tr><td>"+o.id+"</td><td>"+o.customer+"</td><td>"+o.phone+"</td><td class=order-items-small>"+items+"</td><td>Rs. "+o.subtotal+"</td><td>Rs. "+o.delivery+"</td><td><strong>Rs. "+o.total+"</strong></td><td>"+o.payment+"</td><td>"+o.date+"</td><td class="+sc+">"+st+"</td></tr>";});}}
 function markSeen(id){var orders=JSON.parse(localStorage.getItem("orders"))||[];var idx=orders.findIndex(function(o){return o.id===id;});if(idx>-1){orders[idx].seen=true;localStorage.setItem("orders",JSON.stringify(orders));loadOrders();updateOrderBadge();}}
@@ -155,8 +143,7 @@ function insertStockNew(event){event.preventDefault();var name=document.getEleme
 function deleteStockNew(index){if(!confirm("Delete this item?"))return;var stock=JSON.parse(localStorage.getItem("stock"))||[];var name=stock[index].name;stock.splice(index,1);localStorage.setItem("stock",JSON.stringify(stock));addLog("Deleted: "+name,"&#128465;");loadStockWithStatus();}
 function editStock(index){var stock=JSON.parse(localStorage.getItem("stock"))||[];var item=stock[index];var newName=prompt("Product Name:",item.name),newPrice=prompt("Price:",item.price),newQty=prompt("Quantity:",item.qty);if(newName&&newPrice&&newQty){stock[index]=Object.assign({},item,{name:newName,price:parseInt(newPrice),qty:parseInt(newQty)});localStorage.setItem("stock",JSON.stringify(stock));addLog("Updated: "+newName,"&#9999;");loadStockWithStatus();}}
 function drawOrdersChart(){var orders=JSON.parse(localStorage.getItem("orders"))||[];var total=orders.length,newO=orders.filter(function(o){return!o.seen;}).length,seen=orders.filter(function(o){return o.seen;}).length;var canvas=document.getElementById("ordersChart");if(!canvas)return;var ctx=canvas.getContext("2d");ctx.clearRect(0,0,canvas.width,canvas.height);var labels=["Total Orders","New Orders","Seen Orders"];var values=[total,newO,seen];var colors=["#ff6b9d","#e8527f","#ffd6e8"];var maxVal=Math.max.apply(null,values)||1;var barW=80,gap=60,padL=60,padB=50,chartH=canvas.height-padB-20;ctx.strokeStyle="#eee";ctx.beginPath();ctx.moveTo(padL,10);ctx.lineTo(padL,canvas.height-padB);ctx.lineTo(canvas.width-10,canvas.height-padB);ctx.stroke();for(var i=0;i<3;i++){var x=padL+i*(barW+gap)+gap;var barH=maxVal>0?(values[i]/maxVal)*chartH:0;var y=canvas.height-padB-barH;ctx.fillStyle=colors[i];ctx.beginPath();ctx.roundRect?ctx.roundRect(x,y,barW,barH,6):ctx.rect(x,y,barW,barH);ctx.fill();ctx.fillStyle="#333";ctx.font="bold 14px Poppins,sans-serif";ctx.textAlign="center";ctx.fillText(values[i],x+barW/2,y-8);ctx.fillStyle="#555";ctx.font="12px Poppins,sans-serif";ctx.fillText(labels[i],x+barW/2,canvas.height-padB+18);}}
-window.onload=function(){initNavbar();updateCartCount();loadStockWithStatus();updateOrderBadge();showTab("stock");};
-</script>
+window.onload=function(){loadNavbar();updateCartCount();loadStockWithStatus();updateOrderBadge();showTab("stock");};</script>
 </body>
 </html>
 

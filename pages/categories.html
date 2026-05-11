@@ -9,188 +9,187 @@
 </head>
 <body>
 
-  <nav>
-  <a href="../index.html">E-commerce Cosmetics Store</a>
-  <button class="menu-toggle" id="menuToggle" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <ul id="navMenu">
-    <li><a href="../index.html">Home</a></li>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-  </ul>
-</nav>
+  <div id="navbar-placeholder"></div>
 
-  <div class="page">
-    <h2>Shop by Categories 💄</h2>
+  <!-- PAGE HEADER -->
+  <div class="cat-hero">
+    <h1>Shop by Category</h1>
+    <p>Explore our full range of beauty products — from makeup to skincare, haircare and nailcare.</p>
   </div>
 
-  <div class="filter-layout">
+  <!-- CATEGORY CARDS -->
+  <div class="page">
 
-    <!-- ACCORDION SIDEBAR -->
-    <div class="filter-sidebar">
-      <h3>Filter By</h3>
+    <div class="card-container">
 
-      <!-- CATEGORY ACCORDION -->
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
-          Category <span>+</span>
+      <!-- MAKEUP -->
+      <div class="cat-card" onclick="window.location.href='products.html?cat=makeup'">
+        <div class="cat-card-img">
+          <img src="../sources/lipstick1.jpeg" alt="Makeup">
         </div>
-        <div class="accordion-body">
-          <a href="#" onclick="filterByCategory('all'); return false;">All</a>
-          <a href="#" onclick="filterByCategory('makeup'); return false;">Makeup</a>
-          <a href="#" onclick="filterByCategory('skincare'); return false;">Skincare</a>
-          <a href="#" onclick="filterByCategory('haircare'); return false;">Haircare</a>
-          <a href="#" onclick="filterByCategory('nailcare'); return false;">Nailcare</a>
-        </div>
-      </div>
-
-      <!-- MAKEUP SUB ACCORDION -->
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
-          Makeup <span>+</span>
-        </div>
-        <div class="accordion-body">
-          <a href="#" onclick="filterBySubCategory('lips'); return false;">Lips</a>
-          <a href="#" onclick="filterBySubCategory('eyes'); return false;">Eyes</a>
-          <a href="#" onclick="filterBySubCategory('face'); return false;">Face</a>
-          <a href="#" onclick="filterBySubCategory('nails'); return false;">Nails</a>
-        </div>
-      </div>
-
-      <!-- PRICE ACCORDION -->
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
-          Price <span>+</span>
-        </div>
-        <div class="accordion-body">
-          <div class="filter-sidebar-bottom">
-            <input type="number" id="minPrice" placeholder="Min Rs.">
-            <input type="number" id="maxPrice" placeholder="Max Rs.">
-            <button onclick="filterByPrice()">See Results</button>
+        <div class="cat-card-body">
+          <h2>💄 Makeup</h2>
+          <p>Lipsticks, foundations, mascaras, eyeshadows, primers and more.</p>
+          <div class="cat-sub-links">
+            <a href="products.html?cat=makeup&sub=lips">👄 Lips</a>
+            <a href="products.html?cat=makeup&sub=eyes">👁️ Eyes</a>
+            <a href="products.html?cat=makeup&sub=face">✨ Face</a>
           </div>
+          <button>Shop Makeup →</button>
         </div>
       </div>
 
-      <!-- DISCOUNT ACCORDION -->
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
-          Discount <span>+</span>
+      <!-- SKINCARE -->
+      <div class="cat-card" onclick="window.location.href='products.html?cat=skincare'">
+        <div class="cat-card-img">
+          <img src="../sources/vitamin c.jpeg" alt="Skincare">
         </div>
-        <div class="accordion-body">
-          <a href="#" onclick="filterByDiscount(); return false;">On Sale</a>
-          <a href="#" onclick="resetFilters(); return false;">All Products</a>
+        <div class="cat-card-body">
+          <h2>🧴 Skincare</h2>
+          <p>Serums, moisturizers, cleansers and everything your skin needs to glow.</p>
+          <div class="cat-sub-links">
+            <a href="products.html?cat=skincare&sub=face">✨ Face Care</a>
+            <a href="products.html?cat=skincare">🌿 All Skincare</a>
+          </div>
+          <button>Shop Skincare →</button>
         </div>
       </div>
 
-      <div class="filter-sidebar-bottom">
-        <button class="btn-outline" onclick="resetFilters()">Clear Filters</button>
+      <!-- HAIRCARE -->
+      <div class="cat-card" onclick="window.location.href='products.html?cat=haircare'">
+        <div class="cat-card-img">
+          <img src="../sources/shampoo.jpeg" alt="Haircare">
+        </div>
+        <div class="cat-card-body">
+          <h2>💆 Haircare</h2>
+          <p>Shampoos, hair oils and treatments for healthy, shiny hair.</p>
+          <div class="cat-sub-links">
+            <a href="products.html?cat=haircare">🧴 Shampoo</a>
+            <a href="products.html?cat=haircare">💧 Hair Oil</a>
+          </div>
+          <button>Shop Haircare →</button>
+        </div>
       </div>
+
+      <!-- NAILCARE -->
+      <div class="cat-card" onclick="window.location.href='products.html?cat=nailcare'">
+        <div class="cat-card-img">
+          <img src="../sources/nailpolish.jpeg" alt="Nailcare">
+        </div>
+        <div class="cat-card-body">
+          <h2>💅 Nailcare</h2>
+          <p>Nail polishes, nail kits and everything for perfect nails.</p>
+          <div class="cat-sub-links">
+            <a href="products.html?cat=nailcare">💅 Nail Polish</a>
+            <a href="products.html?cat=nailcare">🧰 Nail Kits</a>
+          </div>
+          <button>Shop Nailcare →</button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- PRODUCTS AREA -->
-    <div class="filter-products-area">
+    <!-- FEATURED PRODUCTS PER CATEGORY -->
+    <h2 class="section-title">Featured from Each Category</h2>
 
-      <!-- ACTIVE FILTER TAGS -->
-      <div class="active-filters" id="activeTags"></div>
-
-      <div class="card-container" id="categoryProducts">
-
-        <div class="card reveal" data-category="makeup" data-subcategory="lips" data-price="1200" data-sale="true">
-          <span class="badge-discount">-20%</span>
-          <img src="../sources/lipstick1.jpeg" alt="Lipstick">
-          <h3>Lipstick</h3>
-          <p class="price-old">Rs. 1500</p>
-          <p class="price-new">Rs. 1200</p>
-          <button onclick="addToCart('Lipstick',1200,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="makeup" data-subcategory="eyes" data-price="1800">
-          <img src="../sources/maskara.jpeg" alt="Mascara">
-          <h3>Mascara</h3>
-          <p class="price-new">Rs. 1800</p>
-          <button onclick="addToCart('Mascara',1800,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="makeup" data-subcategory="eyes" data-price="3500">
-          <img src="../sources/palette.jpeg" alt="Eyeshadow Palette">
-          <h3>Eyeshadow Palette</h3>
-          <p class="price-new">Rs. 3500</p>
-          <button onclick="addToCart('Eyeshadow Palette',3500,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="makeup" data-subcategory="lips" data-price="900">
-          <img src="../sources/gloss.jpeg" alt="Lip Gloss">
-          <h3>Lip Gloss</h3>
-          <p class="price-new">Rs. 900</p>
-          <button onclick="addToCart('Lip Gloss',900,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="makeup" data-subcategory="face" data-price="1400" data-sale="true">
-          <span class="badge-discount">-15%</span>
-          <img src="../sources/compact powder.jpeg" alt="Compact Powder">
-          <h3>Compact Powder</h3>
-          <p class="price-old">Rs. 1650</p>
-          <p class="price-new">Rs. 1400</p>
-          <button onclick="addToCart('Compact Powder',1400,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="500">
-          <img src="../sources/face cleanser.jpeg" alt="Face Cleanser">
-          <h3>Face Cleanser</h3>
-          <p class="price-new">Rs. 500</p>
-          <button onclick="addToCart('Face Cleanser',500,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="1000" data-sale="true">
-          <span class="badge-discount">-10%</span>
-          <img src="../sources/moisturizers.jpeg" alt="Moisturizer">
-          <h3>Moisturizer</h3>
-          <p class="price-old">Rs. 1100</p>
-          <p class="price-new">Rs. 1000</p>
-          <button onclick="addToCart('Moisturizer',1000,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="skincare" data-subcategory="face" data-price="1200">
-          <img src="../sources/vitamin c.jpeg" alt="Vitamin C Serum">
-          <h3>Vitamin C Serum</h3>
-          <p class="price-new">Rs. 1200</p>
-          <button onclick="addToCart('Vitamin C Serum',1200,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="haircare" data-subcategory="hair" data-price="1200">
-          <img src="../sources/shampoo.jpeg" alt="Shampoo">
-          <h3>Shampoo</h3>
-          <p class="price-new">Rs. 1200</p>
-          <button onclick="addToCart('Shampoo',1200,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="haircare" data-subcategory="hair" data-price="700">
-          <img src="../sources/hair oil.jpeg" alt="Hair Oil">
-          <h3>Hair Oil</h3>
-          <p class="price-new">Rs. 700</p>
-          <button onclick="addToCart('Hair Oil',700,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="nailcare" data-subcategory="nails" data-price="700">
-          <img src="../sources/nailpolish.jpeg" alt="Nail Polish">
-          <h3>Nail Polish</h3>
-          <p class="price-new">Rs. 700</p>
-          <button onclick="addToCart('Nail Polish',700,this)">Add to Cart</button>
-        </div>
-
-        <div class="card reveal" data-category="nailcare" data-subcategory="nails" data-price="900">
-          <img src="../sources/nailkit.jpeg" alt="Nail Kit">
-          <h3>Nail Kit</h3>
-          <p class="price-new">Rs. 900</p>
-          <button onclick="addToCart('Nail Kit',900,this)">Add to Cart</button>
-        </div>
-
+    <!-- MAKEUP FEATURED -->
+    <h3 class="cat-section-label">💄 Makeup</h3>
+    <div class="card-container">
+      <div class="card" data-category="makeup">
+        <img src="../sources/lipstick1.jpeg" alt="Matte Lipstick">
+        <h3>Matte Lipstick</h3>
+        <p class="price-new">Rs. 1200</p>
+        <button onclick="addToCart('Matte Lipstick',1200,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="makeup">
+        <img src="../sources/foundation.jpg" alt="Foundation">
+        <h3>Liquid Foundation</h3>
+        <p class="price-new">Rs. 2500</p>
+        <button onclick="addToCart('Liquid Foundation',2500,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="makeup">
+        <img src="../sources/maskara.jpeg" alt="Mascara">
+        <h3>Volume Mascara</h3>
+        <p class="price-new">Rs. 1800</p>
+        <button onclick="addToCart('Volume Mascara',1800,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="makeup">
+        <img src="../sources/palette.jpeg" alt="Eyeshadow Palette">
+        <h3>Eyeshadow Palette</h3>
+        <p class="price-new">Rs. 3500</p>
+        <button onclick="addToCart('Eyeshadow Palette',3500,this)">Add to Cart</button>
       </div>
     </div>
+    <div class="filter-bar">
+      <button onclick="window.location.href='products.html?cat=makeup'">View All Makeup →</button>
+    </div>
+
+    <!-- SKINCARE FEATURED -->
+    <h3 class="cat-section-label">🧴 Skincare</h3>
+    <div class="card-container">
+      <div class="card" data-category="skincare">
+        <img src="../sources/vitamin c.jpeg" alt="Vitamin C Serum">
+        <h3>Vitamin C Serum</h3>
+        <p class="price-new">Rs. 1200</p>
+        <button onclick="addToCart('Vitamin C Serum',1200,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="skincare">
+        <img src="../sources/moisturizers.jpeg" alt="Moisturizer">
+        <h3>Moisturizer</h3>
+        <p class="price-new">Rs. 2000</p>
+        <button onclick="addToCart('Moisturizer',2000,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="skincare">
+        <img src="../sources/face cleanser.jpeg" alt="Face Cleanser">
+        <h3>Face Cleanser</h3>
+        <p class="price-new">Rs. 1500</p>
+        <button onclick="addToCart('Face Cleanser',1500,this)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <button onclick="window.location.href='products.html?cat=skincare'">View All Skincare →</button>
+    </div>
+
+    <!-- HAIRCARE FEATURED -->
+    <h3 class="cat-section-label">💆 Haircare</h3>
+    <div class="card-container">
+      <div class="card" data-category="haircare">
+        <img src="../sources/shampoo.jpeg" alt="Shampoo">
+        <h3>Shampoo</h3>
+        <p class="price-new">Rs. 1200</p>
+        <button onclick="addToCart('Shampoo',1200,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="haircare">
+        <img src="../sources/hair oil.jpeg" alt="Hair Oil">
+        <h3>Hair Oil</h3>
+        <p class="price-new">Rs. 700</p>
+        <button onclick="addToCart('Hair Oil',700,this)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <button onclick="window.location.href='products.html?cat=haircare'">View All Haircare →</button>
+    </div>
+
+    <!-- NAILCARE FEATURED -->
+    <h3 class="cat-section-label">💅 Nailcare</h3>
+    <div class="card-container">
+      <div class="card" data-category="nailcare">
+        <img src="../sources/nailpolish.jpeg" alt="Nail Polish">
+        <h3>Nail Polish</h3>
+        <p class="price-new">Rs. 700</p>
+        <button onclick="addToCart('Nail Polish',700,this)">Add to Cart</button>
+      </div>
+      <div class="card" data-category="nailcare">
+        <img src="../sources/nailkit.jpeg" alt="Nail Kit">
+        <h3>Nail Kit</h3>
+        <p class="price-new">Rs. 900</p>
+        <button onclick="addToCart('Nail Kit',900,this)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <button onclick="window.location.href='products.html?cat=nailcare'">View All Nailcare →</button>
+    </div>
+
   </div>
 
   <footer>
@@ -208,64 +207,8 @@
 
   <script src="../jsFile/jsFunction.js"></script>
   <script>
-    function initNavbar() {
-      let toggle = document.getElementById('menuToggle');
-      let menu = document.getElementById('navMenu');
-      if (toggle && menu) {
-        toggle.addEventListener('click', () => menu.classList.toggle('open'));
-      }
-    }
-
-    window.onload = function(){ initNavbar(); };
-
-    function toggleAccordion(header) {
-      let body = header.nextElementSibling;
-      let isOpen = body.style.maxHeight;
-      /* close all */
-      document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = '');
-      document.querySelectorAll('.accordion-header').forEach(h => {
-        h.classList.remove('active');
-        let sp = h.querySelector('span');
-        if (sp) sp.textContent = '+';
-      });
-      if (!isOpen) {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        header.classList.add('active');
-        let sp = header.querySelector('span');
-        if (sp) sp.textContent = '−';
-      }
-    }
-
-    function filterBySubCategory(sub) {
-      document.querySelectorAll('.card[data-subcategory]').forEach(card => {
-        card.style.display = card.getAttribute('data-subcategory') === sub ? 'flex' : 'none';
-      });
-      showTag('Sub: ' + sub);
-    }
-
-    function filterByDiscount() {
-      document.querySelectorAll('.card').forEach(card => {
-        card.style.display = card.getAttribute('data-sale') === 'true' ? 'flex' : 'none';
-      });
-      showTag('On Sale');
-    }
-
-    function showTag(label) {
-      let container = document.getElementById('activeTags');
-      container.innerHTML = `
-        <div class="filter-tag">
-          ${label}
-          <button onclick="clearTag()">✕</button>
-        </div>`;
-    }
-
-    function clearTag() {
-      document.getElementById('activeTags').innerHTML = '';
-      resetFilters();
-    }
+    window.onload = function(){ loadNavbar(); updateCartCount(); };
   </script>
 
 </body>
 </html>
-
-

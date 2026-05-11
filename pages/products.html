@@ -9,20 +9,7 @@
 </head>
 <body>
 
-  <nav>
-    <a href="../index.html">E-commerce Cosmetics Store</a>
-    <button class="menu-toggle" id="menuToggle" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul id="navMenu">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="cart.html">Cart <span id="cartCount"></span></a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="dashboard.html">Dashboard</a></li>
-    </ul>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
   <div class="page">
     <div class="shop-topbar">
@@ -297,7 +284,25 @@
 
   <script src="../jsFile/jsFunction.js"></script>
   <script>
-    window.onload = function(){ initNavbar(); updateCartCount(); };
+    window.onload = function(){
+      loadNavbar();
+      updateCartCount();
+      /* auto-filter if arriving from categories page */
+      var params = new URLSearchParams(window.location.search);
+      var cat = params.get('cat');
+      var sub = params.get('sub');
+      if (cat) {
+        var link = document.querySelector('.acc-link[onclick*="setCat(\'' + cat + '\'"]');
+        if (link) { setCat(cat, link); }
+        /* open the category accordion */
+        var catBody = document.getElementById('catBody');
+        if (catBody) catBody.style.maxHeight = catBody.scrollHeight + 'px';
+      }
+      if (sub) {
+        var subLink = document.querySelector('.acc-link[onclick*="setSub(\'' + sub + '\'"]');
+        if (subLink) { setSub(sub, subLink); }
+      }
+    };
 
     function toggleAcc(header) {
       let body = header.nextElementSibling;
@@ -384,13 +389,6 @@
       cards.forEach(c => grid.appendChild(c));
     }
 
-    function initNavbar() {
-      let toggle = document.getElementById('menuToggle');
-      let menu = document.getElementById('navMenu');
-      if (toggle && menu) {
-        toggle.addEventListener('click', () => menu.classList.toggle('open'));
-      }
-    }
   </script>
 
 </body>
