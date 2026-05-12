@@ -287,14 +287,12 @@
     window.onload = function(){
       loadNavbar();
       updateCartCount();
-      /* auto-filter if arriving from categories page */
       var params = new URLSearchParams(window.location.search);
       var cat = params.get('cat');
       var sub = params.get('sub');
       if (cat) {
         var link = document.querySelector('.acc-link[onclick*="setCat(\'' + cat + '\'"]');
         if (link) { setCat(cat, link); }
-        /* open the category accordion */
         var catBody = document.getElementById('catBody');
         if (catBody) catBody.style.maxHeight = catBody.scrollHeight + 'px';
       }
@@ -303,92 +301,6 @@
         if (subLink) { setSub(sub, subLink); }
       }
     };
-
-    function toggleAcc(header) {
-      let body = header.nextElementSibling;
-      let sp = header.querySelector('span');
-      let isOpen = sp.textContent === '−';
-      document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = '');
-      document.querySelectorAll('.accordion-header').forEach(h => {
-        h.classList.remove('active');
-        let s = h.querySelector('span'); if(s) s.textContent = '+';
-      });
-      if (!isOpen) {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        header.classList.add('active');
-        sp.textContent = '−';
-      }
-    }
-
-    function setCat(cat, el) {
-      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
-      el.classList.add('active-link');
-      document.querySelectorAll('.product-card').forEach(c => {
-        c.style.display = (cat === 'all' || c.dataset.category === cat) ? 'flex' : 'none';
-      });
-      showTag(cat === 'all' ? '' : cat.charAt(0).toUpperCase() + cat.slice(1));
-    }
-
-    function setSub(sub, el) {
-      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
-      el.classList.add('active-link');
-      document.querySelectorAll('.product-card').forEach(c => {
-        c.style.display = c.dataset.sub === sub ? 'flex' : 'none';
-      });
-      showTag(sub.charAt(0).toUpperCase() + sub.slice(1));
-    }
-
-    function applyPrice() {
-      let min = parseInt(document.getElementById('minPrice').value) || 0;
-      let max = parseInt(document.getElementById('maxPrice').value) || 999999;
-      document.querySelectorAll('.product-card').forEach(c => {
-        c.style.display = (parseInt(c.dataset.price) >= min && parseInt(c.dataset.price) <= max) ? 'flex' : 'none';
-      });
-      showTag('Rs.' + min + ' – Rs.' + (max === 999999 ? '∞' : max));
-    }
-
-    function showSaleOnly(el) {
-      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
-      el.classList.add('active-link');
-      document.querySelectorAll('.product-card').forEach(c => {
-        c.style.display = c.dataset.sale === 'true' ? 'flex' : 'none';
-      });
-      showTag('On Sale');
-    }
-
-    function showTag(label) {
-      let t = document.getElementById('activeTags');
-      t.innerHTML = label ? `<div class="filter-tag">${label} <button onclick="clearAllFilters()">✕</button></div>` : '';
-    }
-
-    function clearAllFilters() {
-      document.querySelectorAll('.product-card').forEach(c => c.style.display = 'flex');
-      document.querySelectorAll('.acc-link').forEach(a => a.classList.remove('active-link'));
-      document.querySelector('.acc-link').classList.add('active-link');
-      document.getElementById('minPrice').value = '';
-      document.getElementById('maxPrice').value = '';
-      document.getElementById('activeTags').innerHTML = '';
-      document.getElementById('searchInput').value = '';
-    }
-
-    function liveSearch(val) {
-      document.querySelectorAll('.product-card').forEach(c => {
-        c.style.display = c.innerText.toLowerCase().includes(val.toLowerCase()) ? 'flex' : 'none';
-      });
-    }
-
-    function sortProducts(val) {
-      let grid = document.getElementById('productList');
-      let cards = Array.from(grid.querySelectorAll('.product-card'));
-      cards.sort((a,b) => {
-        if(val==='low')  return +a.dataset.price - +b.dataset.price;
-        if(val==='high') return +b.dataset.price - +a.dataset.price;
-        if(val==='name') return a.dataset.name.localeCompare(b.dataset.name);
-        return 0;
-      });
-      cards.forEach(c => grid.appendChild(c));
-    }
-
   </script>
 
 </body>

@@ -184,45 +184,6 @@
     loadRootNavbar();
     updateCartCount();
   };
-
-  /* index.html is in root — inject navbar directly, no fetch needed */
-  function loadRootNavbar() {
-    var navHTML = '<nav>'
-      + '<a href="index.html">E-commerce Cosmetics Store</a>'
-      + '<button class="menu-toggle" id="menuToggle" aria-expanded="false">'
-      + '<span></span><span></span><span></span>'
-      + '</button>'
-      + '<ul id="navMenu">'
-      + '<li><a href="index.html">Home</a></li>'
-      + '<li><a href="pages/products.html">Products</a></li>'
-      + '<li><a href="pages/cart.html">Cart <span id="cartCount"></span></a></li>'
-      + '<li><a href="pages/contact.html">Contact</a></li>'
-      + '<li><a href="pages/login.html">Login</a></li>'
-      + '<li><a href="pages/dashboard.html">Dashboard</a></li>'
-      + '</ul>'
-      + '</nav>';
-
-    var el = document.getElementById('navbar-placeholder');
-    if (el) {
-      el.innerHTML = navHTML;
-      var toggle = document.getElementById('menuToggle');
-      var menu   = document.getElementById('navMenu');
-      if (toggle && menu) {
-        toggle.addEventListener('click', function() {
-          menu.classList.toggle('open');
-        });
-      }
-      updateCartCount();
-    }
-  }
-
-  function homeFilter(type, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#homeProducts .card').forEach(card => {
-      card.style.display = (type === 'all' || card.dataset.home === type) ? 'flex' : 'none';
-    });
-  }
 </script>
 </body>
 </html>

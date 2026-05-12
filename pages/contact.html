@@ -96,17 +96,6 @@
   <script src="../jsFile/jsFunction.js"></script>
   <script>
     window.onload = function(){ loadNavbar(); updateCartCount(); };
-
-    function sendMessage(e) {
-      e.preventDefault();
-      let fname = document.getElementById('cfname').value.trim();
-      let lname = document.getElementById('clname').value.trim();
-      let email = document.getElementById('cemail').value.trim();
-      let msg   = document.getElementById('cmessage').value.trim();
-      if (!fname || !email || !msg) { showToast('Please fill required fields', 'error'); return; }
-      showToast('✅ Message sent! We will get back to you soon.');
-      e.target.reset();
-    }
   </script>
 
 </body>
